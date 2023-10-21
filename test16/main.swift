@@ -7,54 +7,74 @@
 
 import Foundation
 
-enum ShiftDirection {
-    case up
-    case down
-}
-
-struct Car {
-    var model: String
-    var seats: Int
-    private var gear: Int
-    
-    init(model: String, seats: Int) {
-        self.model = model
-        self.seats = seats
-        self.gear = 0
-    }
-    
-    mutating func shift(_ direction: ShiftDirection) {
-        if direction == ShiftDirection.up {
-            if gear > 5 {
-                print("\(model) cannot shift up. Currently in highest gear.")
-            } else {
-                gear += 1
-                print("\(model) shifted to gear: \(gear)")
-            }
-        }
-        if direction == ShiftDirection.down {
-            if gear < 1 {
-                print("\(model) cannot shift down. Currently in lowest gear.")
-            } else {
-                gear -= 1
-                print("\(model) shifted to gear: \(gear)")
-            }
-        }
+class Animal {
+    var legs: Int
+    init(legs: Int) {
+        self.legs = legs
     }
 }
 
-var car = Car(model: "test car", seats: 4)
-for _ in 0...6 {
-    car.shift(.up)
-}
-for _ in 0...6 {
-    car.shift(.down)
+class Dog: Animal {
+    func speak() {
+        print("Dog")
+    }
+    init() {
+        super.init(legs: 4)
+    }
 }
 
-var car2 = Car(model: "test car 2", seats: 4)
-for _ in 0...6 {
-    car2.shift(.up)
+class Cat: Animal {
+    var isTame: Bool
+    func speak() {
+        print("Cat")
+    }
+    init(isTame: Bool) {
+        self.isTame = isTame
+        super.init(legs: 4)
+    }
 }
-for _ in 0...6 {
-    car2.shift(.down)
+
+final class Corgi: Dog {
+    override func speak() {
+        print("Corgi")
+    }
 }
+
+final class Poodle: Dog {
+    override func speak() {
+        print("Poodle")
+    }
+}
+
+final class Persian: Cat {
+    override func speak() {
+        print("Persian")
+    }
+    init() {
+        super.init(isTame: true)
+    }
+}
+
+final class Lion: Cat {
+    override func speak() {
+        print("Lion")
+    }
+    init() {
+        super.init(isTame: false)
+    }
+}
+
+let dog = Dog()
+let corgi = Corgi()
+let poodle = Poodle()
+
+let cat = Cat(isTame: true)
+let persian = Persian()
+let lion = Lion()
+
+dog.speak()
+corgi.speak()
+poodle.speak()
+cat.speak()
+persian.speak()
+lion.speak()
