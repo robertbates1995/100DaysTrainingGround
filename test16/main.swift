@@ -7,16 +7,13 @@
 
 import Foundation
 
-var num: Int?
-
-func printNumber(_ number: Int?) {
-    if let number = num {
-        print("the integer is: \(number)")
-    } else {
-        print("this value has not been set")
-    }
+func randomArray(_ numbers: [Int]?) -> Int {
+    return numbers?.randomElement() ?? Int.random(in: 1..<100)
 }
 
-printNumber(num)
-num = 3
-printNumber(num)
+var test: [Int]? = nil
+print(randomArray(test))
+test = []
+print(randomArray(test))
+test = [101, 102, 103]
+print(randomArray(test))
