@@ -7,33 +7,16 @@
 
 import Foundation
 
-protocol building {
-    var rooms: Int { get set }
-    var cost: Int { get set }
-    var agent: String { get set }
-    func summary()
-}
+var num: Int?
 
-struct House: building {
-    var rooms: Int
-    var cost: Int
-    var agent: String
-    func summary() {
-        print("This house has \(rooms) rooms. It costs $\(cost), and is sold by \(agent)")
+func printNumber(_ number: Int?) {
+    if let number = num {
+        print("the integer is: \(number)")
+    } else {
+        print("this value has not been set")
     }
 }
 
-struct Office: building {
-    var rooms: Int
-    var cost: Int
-    var agent: String
-    func summary() {
-        print("This office has \(rooms) rooms. It costs $\(cost), and is sold by \(agent)")
-    }
-}
-
-let house = House(rooms: 6, cost: 4700000, agent: "test agent")
-let office = Office(rooms: 600, cost: 74000000, agent: "test agent 2")
-
-house.summary()
-office.summary()
+printNumber(num)
+num = 3
+printNumber(num)
