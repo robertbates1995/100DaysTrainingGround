@@ -7,74 +7,33 @@
 
 import Foundation
 
-class Animal {
-    var legs: Int
-    init(legs: Int) {
-        self.legs = legs
+protocol building {
+    var rooms: Int { get set }
+    var cost: Int { get set }
+    var agent: String { get set }
+    func summary()
+}
+
+struct House: building {
+    var rooms: Int
+    var cost: Int
+    var agent: String
+    func summary() {
+        print("This house has \(rooms) rooms. It costs $\(cost), and is sold by \(agent)")
     }
 }
 
-class Dog: Animal {
-    func speak() {
-        print("Dog")
-    }
-    init() {
-        super.init(legs: 4)
-    }
-}
-
-class Cat: Animal {
-    var isTame: Bool
-    func speak() {
-        print("Cat")
-    }
-    init(isTame: Bool) {
-        self.isTame = isTame
-        super.init(legs: 4)
+struct Office: building {
+    var rooms: Int
+    var cost: Int
+    var agent: String
+    func summary() {
+        print("This office has \(rooms) rooms. It costs $\(cost), and is sold by \(agent)")
     }
 }
 
-final class Corgi: Dog {
-    override func speak() {
-        print("Corgi")
-    }
-}
+let house = House(rooms: 6, cost: 4700000, agent: "test agent")
+let office = Office(rooms: 600, cost: 74000000, agent: "test agent 2")
 
-final class Poodle: Dog {
-    override func speak() {
-        print("Poodle")
-    }
-}
-
-final class Persian: Cat {
-    override func speak() {
-        print("Persian")
-    }
-    init() {
-        super.init(isTame: true)
-    }
-}
-
-final class Lion: Cat {
-    override func speak() {
-        print("Lion")
-    }
-    init() {
-        super.init(isTame: false)
-    }
-}
-
-let dog = Dog()
-let corgi = Corgi()
-let poodle = Poodle()
-
-let cat = Cat(isTame: true)
-let persian = Persian()
-let lion = Lion()
-
-dog.speak()
-corgi.speak()
-poodle.speak()
-cat.speak()
-persian.speak()
-lion.speak()
+house.summary()
+office.summary()
