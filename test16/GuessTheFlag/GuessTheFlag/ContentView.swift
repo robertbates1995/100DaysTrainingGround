@@ -17,20 +17,19 @@ struct ContentView: View {
     
     var body: some View {
         ZStack {
-            Color.blue.ignoresSafeArea()
+            LinearGradient(colors: [.blue, .black], startPoint: .top, endPoint: .bottom).ignoresSafeArea()
             VStack(spacing: 30) {
-                VStack {
-                    Text("Tap the flag of")
-                    Text(countries[correctAnswer])
-                }
-                
-                VStack {
-                    ForEach(0..<3) { number in
-                        Button {
-                            flagTapped(number)
-                        } label: {
-                            Image(countries[number])
-                        }
+                Text("Tap the flag of")
+                    .foregroundStyle(.white)
+                    .font(.subheadline.weight(.heavy))
+                Text(countries[correctAnswer])
+                    .foregroundStyle(.white)
+                    .font(.subheadline.weight(.semibold))
+                ForEach(0..<3) { number in
+                    Button {
+                        flagTapped(number)
+                    } label: {
+                        Image(countries[number])
                     }
                 }
             }
