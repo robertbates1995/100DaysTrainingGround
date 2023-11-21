@@ -9,9 +9,10 @@ import SwiftUI
 
 struct ContentView: View {
     @State private var useRedText: Bool = false
+    var buttonLabel: String = "test button label"
     
     var body: some View {
-        Button("hello world") {
+        Button(buttonLabel) {
             useRedText.toggle()
         }
         .foregroundStyle(useRedText ? .red : .blue)
