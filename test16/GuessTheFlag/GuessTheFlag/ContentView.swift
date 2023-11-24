@@ -7,6 +7,31 @@
 
 import SwiftUI
 
+class ContentModel {
+    var countries = ["Estonia", "France", "Germany", "Ireland", "Italy", "Nigeria", "Poland", "Spain", "UK", "Ukraine", "US"].shuffled()
+    var showingScore = false
+    var scoreTitle = ""
+    var userScore = 0
+    var totalAsked = 0
+    var correctAnswer = Int.random(in: 0...2)
+    
+    func flagTapped(_ number: Int) {
+        if number == correctAnswer {
+            userScore += 1
+            scoreTitle = "Correct"
+        } else {
+            scoreTitle = "Wrong, that's \(countries[number])"
+        }
+        totalAsked += 1
+        showingScore = true
+    }
+    
+    func askQuestion() {
+        countries.shuffle()
+        correctAnswer = Int.random(in: 0...2)
+    }
+}
+
 struct ContentView: View {
     @State private var countries = ["Estonia", "France", "Germany", "Ireland", "Italy", "Nigeria", "Poland", "Spain", "UK", "Ukraine", "US"].shuffled()
     
@@ -59,7 +84,7 @@ struct ContentView: View {
             userScore += 1
             scoreTitle = "Correct"
         } else {
-            scoreTitle = "Wrong, that's \(number)"
+            scoreTitle = "Wrong, that's \(countries[number])"
         }
         totalAsked += 1
         showingScore = true

@@ -8,29 +8,68 @@
 import XCTest
 @testable import GuessTheFlag
 
+struct TestState: Equatable {
+    var countries: Set<String>
+    var showingScore: Bool
+    var scoreTitle: String
+    var userScore: Int
+    var totalAsked: Int
+    
+    init(_ model: ContentModel) {
+        self.countries = Set(model.countries)
+        self.showingScore = model.showingScore
+        self.scoreTitle = model.scoreTitle
+        self.userScore = model.userScore
+        self.totalAsked = model.totalAsked
+    }
+}
+
 final class GuessTheFlagTests: XCTestCase {
-
-    override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-    }
-
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-    }
-
     func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-        // Any test you write for XCTest can be annotated as throws and async.
-        // Mark your test throws to produce an unexpected failure when your test encounters an uncaught error.
-        // Mark your test async to allow awaiting for asynchronous code to complete. Check the results with assertions afterwards.
+        let sut = ContentModel()
+        XCTAssertEqual(Set(sut.countries), Set(["Estonia", "France", "Germany", "Ireland", "Italy", "Nigeria", "Poland", "Spain", "UK", "Ukraine", "US"]))
+        XCTAssertFalse(sut.showingScore)
+        XCTAssertEqual(sut.scoreTitle, "")
+        XCTAssertEqual(sut.userScore, 0)
+        XCTAssertEqual(sut.totalAsked, 0)
     }
-
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
+    
+    func testRightFlagTapped() {
+        let sut = ContentModel()
+        var expectedState = TestState(sut)
+        expectedState.showingScore = true
+        expectedState.scoreTitle = "Correct"
+        expectedState.userScore = 1
+        expectedState.totalAsked = 1
+        sut.flagTapped(sut.correctAnswer)
+        XCTAssertEqual(TestState(sut), expectedState)
     }
-
+    
+    func testWrongFlagTapped() {
+        let sut = ContentModel()
+        let local = sut.correctAnswer == 0 ? 1 : 0
+        sut.flagTapped(local)
+        XCTAssertTrue(sut.showingScore)
+        XCTAssertEqual(sut.scoreTitle, "Wrong, that's \(sut.countries[local])")
+        XCTAssertEqual(sut.userScore, 0)
+        XCTAssertEqual(sut.totalAsked, 1)
+    }
+    
+    func testRightThenWrong() {
+        let sut = ContentModel()
+        sut.flagTapped(sut.correctAnswer)
+        let local = sut.correctAnswer == 0 ? 1 : 0
+        sut.flagTapped(local)
+        XCTAssertTrue(sut.showingScore)
+        XCTAssertEqual(sut.scoreTitle, "Wrong, that's \(sut.countries[local])")
+        XCTAssertEqual(sut.userScore, 1)
+        XCTAssertEqual(sut.totalAsked, 2)
+    }
+    
+    func testAskQuestion() {
+        let sut = ContentModel()
+        var expectedState = TestState(sut)
+        sut.askQuestion()
+        XCTAssertEqual(TestState(sut), expectedState)
+    }
 }
