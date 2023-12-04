@@ -7,12 +7,14 @@
 
 import SwiftUI
 
+
+@Observable
 class ContentModel {
     var countries = ["Estonia", "France", "Germany", "Ireland", "Italy", "Nigeria", "Poland", "Spain", "UK", "Ukraine", "US"].shuffled()
     var showingScore = false
     var scoreTitle = ""
     var userScore = 0
-    var totalAsked = 0
+    var totalAsked = 1
     var correctAnswer = Int.random(in: 0...2)
     
     func flagTapped(_ number: Int) {
@@ -22,25 +24,22 @@ class ContentModel {
         } else {
             scoreTitle = "Wrong, that's \(countries[number])"
         }
-        totalAsked += 1
         showingScore = true
     }
     
     func askQuestion() {
         countries.shuffle()
         correctAnswer = Int.random(in: 0...2)
+        totalAsked += 1
     }
 }
 
 struct ContentView: View {
-    @State private var countries = ["Estonia", "France", "Germany", "Ireland", "Italy", "Nigeria", "Poland", "Spain", "UK", "Ukraine", "US"].shuffled()
+    @State private var model: ContentModel
     
-    @State private var showingScore = false
-    @State private var scoreTitle = ""
-    @State private var userScore = 0
-    @State private var totalAsked = 0
-    
-    @State private var correctAnswer = Int.random(in: 0...2)
+    init(model: ContentModel = ContentModel()) {
+        self.model = model
+    }
     
     var body: some View {
         ZStack {
@@ -57,42 +56,26 @@ struct ContentView: View {
                     Text("Tap the flag of")
                         .foregroundStyle(.white)
                         .font(.subheadline.weight(.heavy))
-                    Text(countries[correctAnswer])
+                    Text(model.countries[model.correctAnswer])
                         .foregroundStyle(.white)
                         .font(.subheadline.weight(.semibold))
                     ForEach(0..<3) { number in
                         Button {
-                            flagTapped(number)
+                            model.flagTapped(number)
                         } label: {
-                            Image(countries[number])
+                            Image(model.countries[number])
                                 .clipShape(.rect(cornerRadius: 10))
                                 .shadow(radius: 50)
                         }
                     }
                 }
-                .alert(scoreTitle, isPresented: $showingScore) {
-                    Button("Continue", action: askQuestion)
+                .alert(model.scoreTitle, isPresented: $model.showingScore) {
+                    Button("Continue", action: model.askQuestion)
                 } message: {
-                    Text("Your score is: \(userScore)")
+                    Text("Your score is: \(model.userScore)")
                 }
             }
         }
-    }
-    
-    func flagTapped(_ number: Int) {
-        if number == correctAnswer {
-            userScore += 1
-            scoreTitle = "Correct"
-        } else {
-            scoreTitle = "Wrong, that's \(countries[number])"
-        }
-        totalAsked += 1
-        showingScore = true
-    }
-    
-    func askQuestion() {
-        countries.shuffle()
-        correctAnswer = Int.random(in: 0...2)
     }
 }
 
