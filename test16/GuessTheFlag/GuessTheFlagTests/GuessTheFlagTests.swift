@@ -63,20 +63,22 @@ final class GuessTheFlagTests: XCTestCase {
         }
     }
     
+    func testAskQuestion() {
+        when({sut.askQuestion()}) {
+            $0.totalAsked = 2
+        }
+    }
+    
     func testCorrectThenWrong() {
+        sut.flagTapped(sut.correctAnswer)
+        sut.askQuestion()
         let incorectAnswer = sut.correctAnswer == 0 ? 1 : 0
-        when({sut.flagTapped(sut.correctAnswer)
-            sut.flagTapped(incorectAnswer)}) {
+        when({sut.flagTapped(incorectAnswer)}) {
                 $0.showingScore = true
                 $0.scoreTitle = "Wrong, that's \(sut.countries[incorectAnswer])"
                 $0.userScore = 1
-                $0.totalAsked = 2
             }
     }
     
-    func testAskQuestion() {
-        when({sut.askQuestion()}) {
-            $0.totalAsked = 1
-        }
-    }
+    
 }
