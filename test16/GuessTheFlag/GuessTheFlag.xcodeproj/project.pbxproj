@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7A473AEB2B30D2AC00C88E7E /* StateTesting in Frameworks */ = {isa = PBXBuildFile; productRef = 7A473AEA2B30D2AC00C88E7E /* StateTesting */; };
 		7A5F16EF2AF07EDB002D8DF0 /* GuessTheFlagApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A5F16EE2AF07EDB002D8DF0 /* GuessTheFlagApp.swift */; };
 		7A5F16F12AF07EDB002D8DF0 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A5F16F02AF07EDB002D8DF0 /* ContentView.swift */; };
 		7A5F16F32AF07EDC002D8DF0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7A5F16F22AF07EDC002D8DF0 /* Assets.xcassets */; };
@@ -58,6 +59,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7A473AEB2B30D2AC00C88E7E /* StateTesting in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -143,6 +145,8 @@
 			dependencies = (
 			);
 			name = GuessTheFlag;
+			packageProductDependencies = (
+			);
 			productName = GuessTheFlag;
 			productReference = 7A5F16EB2AF07EDB002D8DF0 /* GuessTheFlag.app */;
 			productType = "com.apple.product-type.application";
@@ -161,6 +165,9 @@
 				7A5F16FD2AF07EDD002D8DF0 /* PBXTargetDependency */,
 			);
 			name = GuessTheFlagTests;
+			packageProductDependencies = (
+				7A473AEA2B30D2AC00C88E7E /* StateTesting */,
+			);
 			productName = GuessTheFlagTests;
 			productReference = 7A5F16FB2AF07EDD002D8DF0 /* GuessTheFlagTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
@@ -215,6 +222,9 @@
 				Base,
 			);
 			mainGroup = 7A5F16E22AF07EDB002D8DF0;
+			packageReferences = (
+				7A473AE92B30D2AC00C88E7E /* XCRemoteSwiftPackageReference "StateTesting" */,
+			);
 			productRefGroup = 7A5F16EC2AF07EDB002D8DF0 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -588,6 +598,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		7A473AE92B30D2AC00C88E7E /* XCRemoteSwiftPackageReference "StateTesting" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/robertbates1995/StateTesting";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		7A473AEA2B30D2AC00C88E7E /* StateTesting */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7A473AE92B30D2AC00C88E7E /* XCRemoteSwiftPackageReference "StateTesting" */;
+			productName = StateTesting;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 7A5F16E32AF07EDB002D8DF0 /* Project object */;
 }
