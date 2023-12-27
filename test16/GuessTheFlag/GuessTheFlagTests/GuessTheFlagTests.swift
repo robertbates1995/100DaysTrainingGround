@@ -9,10 +9,6 @@ import XCTest
 @testable import GuessTheFlag
 import StateTesting
 
-struct SimpleState: Equatable {
-    var test1: Int
-}
-
 struct TestState: Equatable {
     var countries: Set<String>
     var showingScore: Bool

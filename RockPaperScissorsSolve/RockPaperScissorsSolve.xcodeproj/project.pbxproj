@@ -7,13 +7,27 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7A1C59FE2B33A99D00E1A533 /* RockPaperScissorsSolveTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A1C59FD2B33A99D00E1A533 /* RockPaperScissorsSolveTests.swift */; };
+		7A1C5A092B33AA3C00E1A533 /* StateTesting in Frameworks */ = {isa = PBXBuildFile; productRef = 7A1C5A082B33AA3C00E1A533 /* StateTesting */; };
 		7AF28C532B33758000834578 /* RockPaperScissorsSolveApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF28C522B33758000834578 /* RockPaperScissorsSolveApp.swift */; };
 		7AF28C552B33758000834578 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF28C542B33758000834578 /* ContentView.swift */; };
 		7AF28C572B33758100834578 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7AF28C562B33758100834578 /* Assets.xcassets */; };
 		7AF28C5A2B33758100834578 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7AF28C592B33758100834578 /* Preview Assets.xcassets */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		7A1C59FF2B33A99D00E1A533 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7AF28C472B33758000834578 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7AF28C4E2B33758000834578;
+			remoteInfo = RockPaperScissorsSolve;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
+		7A1C59FB2B33A99D00E1A533 /* RockPaperScissorsSolveTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RockPaperScissorsSolveTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		7A1C59FD2B33A99D00E1A533 /* RockPaperScissorsSolveTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockPaperScissorsSolveTests.swift; sourceTree = "<group>"; };
 		7AF28C4F2B33758000834578 /* RockPaperScissorsSolve.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RockPaperScissorsSolve.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7AF28C522B33758000834578 /* RockPaperScissorsSolveApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockPaperScissorsSolveApp.swift; sourceTree = "<group>"; };
 		7AF28C542B33758000834578 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -22,6 +36,14 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		7A1C59F82B33A99D00E1A533 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7A1C5A092B33AA3C00E1A533 /* StateTesting in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		7AF28C4C2B33758000834578 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -32,11 +54,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7A1C59FC2B33A99D00E1A533 /* RockPaperScissorsSolveTests */ = {
+			isa = PBXGroup;
+			children = (
+				7A1C59FD2B33A99D00E1A533 /* RockPaperScissorsSolveTests.swift */,
+			);
+			path = RockPaperScissorsSolveTests;
+			sourceTree = "<group>";
+		};
 		7AF28C462B33758000834578 = {
 			isa = PBXGroup;
 			children = (
-				7AF28C602B337CED00834578 /* RockPaperScissorsSolveTests */,
 				7AF28C512B33758000834578 /* RockPaperScissorsSolve */,
+				7A1C59FC2B33A99D00E1A533 /* RockPaperScissorsSolveTests */,
 				7AF28C502B33758000834578 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -45,6 +75,7 @@
 			isa = PBXGroup;
 			children = (
 				7AF28C4F2B33758000834578 /* RockPaperScissorsSolve.app */,
+				7A1C59FB2B33A99D00E1A533 /* RockPaperScissorsSolveTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -68,16 +99,30 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
-		7AF28C602B337CED00834578 /* RockPaperScissorsSolveTests */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = RockPaperScissorsSolveTests;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		7A1C59FA2B33A99D00E1A533 /* RockPaperScissorsSolveTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7A1C5A032B33A99D00E1A533 /* Build configuration list for PBXNativeTarget "RockPaperScissorsSolveTests" */;
+			buildPhases = (
+				7A1C59F72B33A99D00E1A533 /* Sources */,
+				7A1C59F82B33A99D00E1A533 /* Frameworks */,
+				7A1C59F92B33A99D00E1A533 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				7A1C5A002B33A99D00E1A533 /* PBXTargetDependency */,
+			);
+			name = RockPaperScissorsSolveTests;
+			packageProductDependencies = (
+				7A1C5A082B33AA3C00E1A533 /* StateTesting */,
+			);
+			productName = RockPaperScissorsSolveTests;
+			productReference = 7A1C59FB2B33A99D00E1A533 /* RockPaperScissorsSolveTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		7AF28C4E2B33758000834578 /* RockPaperScissorsSolve */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 7AF28C5D2B33758100834578 /* Build configuration list for PBXNativeTarget "RockPaperScissorsSolve" */;
@@ -91,6 +136,8 @@
 			dependencies = (
 			);
 			name = RockPaperScissorsSolve;
+			packageProductDependencies = (
+			);
 			productName = RockPaperScissorsSolve;
 			productReference = 7AF28C4F2B33758000834578 /* RockPaperScissorsSolve.app */;
 			productType = "com.apple.product-type.application";
@@ -105,6 +152,10 @@
 				LastSwiftUpdateCheck = 1510;
 				LastUpgradeCheck = 1510;
 				TargetAttributes = {
+					7A1C59FA2B33A99D00E1A533 = {
+						CreatedOnToolsVersion = 15.1;
+						TestTargetID = 7AF28C4E2B33758000834578;
+					};
 					7AF28C4E2B33758000834578 = {
 						CreatedOnToolsVersion = 15.1;
 					};
@@ -119,16 +170,27 @@
 				Base,
 			);
 			mainGroup = 7AF28C462B33758000834578;
+			packageReferences = (
+				7A1C5A072B33AA3C00E1A533 /* XCRemoteSwiftPackageReference "StateTesting" */,
+			);
 			productRefGroup = 7AF28C502B33758000834578 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
 				7AF28C4E2B33758000834578 /* RockPaperScissorsSolve */,
+				7A1C59FA2B33A99D00E1A533 /* RockPaperScissorsSolveTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		7A1C59F92B33A99D00E1A533 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		7AF28C4D2B33758000834578 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -141,6 +203,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		7A1C59F72B33A99D00E1A533 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7A1C59FE2B33A99D00E1A533 /* RockPaperScissorsSolveTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		7AF28C4B2B33758000834578 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -152,7 +222,51 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		7A1C5A002B33A99D00E1A533 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 7AF28C4E2B33758000834578 /* RockPaperScissorsSolve */;
+			targetProxy = 7A1C59FF2B33A99D00E1A533 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
+		7A1C5A012B33A99D00E1A533 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 2DDP9BK6TP;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "Robert-Bates.RockPaperScissorsSolveTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/RockPaperScissorsSolve.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/RockPaperScissorsSolve";
+			};
+			name = Debug;
+		};
+		7A1C5A022B33A99D00E1A533 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 2DDP9BK6TP;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "Robert-Bates.RockPaperScissorsSolveTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/RockPaperScissorsSolve.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/RockPaperScissorsSolve";
+			};
+			name = Release;
+		};
 		7AF28C5B2B33758100834578 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -333,6 +447,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		7A1C5A032B33A99D00E1A533 /* Build configuration list for PBXNativeTarget "RockPaperScissorsSolveTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7A1C5A012B33A99D00E1A533 /* Debug */,
+				7A1C5A022B33A99D00E1A533 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		7AF28C4A2B33758000834578 /* Build configuration list for PBXProject "RockPaperScissorsSolve" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -352,6 +475,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		7A1C5A072B33AA3C00E1A533 /* XCRemoteSwiftPackageReference "StateTesting" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/robertbates1995/StateTesting";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		7A1C5A082B33AA3C00E1A533 /* StateTesting */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7A1C5A072B33AA3C00E1A533 /* XCRemoteSwiftPackageReference "StateTesting" */;
+			productName = StateTesting;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 7AF28C472B33758000834578 /* Project object */;
 }

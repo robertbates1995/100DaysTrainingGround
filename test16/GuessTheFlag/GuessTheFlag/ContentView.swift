@@ -7,7 +7,6 @@
 
 import SwiftUI
 
-
 @Observable
 class ContentModel {
     var countries = ["Estonia", "France", "Germany", "Ireland", "Italy", "Nigeria", "Poland", "Spain", "UK", "Ukraine", "US"].shuffled()
