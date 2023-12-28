@@ -84,29 +84,38 @@ struct ContentView: View {
     
     var body: some View {
         if(model.isDone == false) {
-            VStack {
-                Text("Total Asked: \(model.totalAsked)")
-                Text("Current Score: \(model.points)")
-                Text("Objective: \(model.goal.rawValue) against \(model.move.rawValue) using \(model.winningMove.rawValue)")
-                HStack{
-                    Button{
-                        model.choseMove(.rock)
-                    } label: {
-                        Text("Rock")
+            ZStack {
+                RadialGradient(stops: [
+                    .init(color: .black, location: 0.3),
+                    .init(color: .white, location: 0.3),
+                ], center: .top, startRadius: 200, endRadius: 700)
+                .ignoresSafeArea()
+                VStack {
+                    Text("Total Asked: \(model.totalAsked)").colorInvert()
+                    Text("Current Score: \(model.points)").colorInvert()
+                    Text("Objective: \(model.goal.rawValue) against \(model.move.rawValue) using \(model.winningMove.rawValue)").colorInvert()
+                    Spacer()
+                    HStack{
+                        Button{
+                            model.choseMove(.rock)
+                        } label: {
+                            Text("Rock")
+                        }
+                        Button{
+                            model.choseMove(.paper)
+                        } label: {
+                            Text("Paper")
+                        }
+                        Button{
+                            model.choseMove(.scissors)
+                        } label: {
+                            Text("Scissors")
+                        }
                     }
-                    Button{
-                        model.choseMove(.paper)
-                    } label: {
-                        Text("Paper")
-                    }
-                    Button{
-                        model.choseMove(.scissors)
-                    } label: {
-                        Text("Scissors")
-                    }
+                    Spacer()
                 }
+                .padding()
             }
-            .padding()
         } else {
             Text("Ending Screen")
         }
