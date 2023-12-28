@@ -7,40 +7,67 @@
 
 import SwiftUI
 
+
 @Observable
 class ContentModel {
-    var move: String
-    var goal: String
-    var winningMove = ""
     
-    init() {
-        self.move = ["rock", "paper", "scissors"].shuffled()[0]
-        self.goal = ["lose", "win"].shuffled()[0]
-        determineCorrectMove()
+    enum Move: String, CaseIterable {
+        case rock, paper, scissors
     }
     
-    func determineCorrectMove() {
-        if goal == "win" {
-            if move == "rock" {
-                winningMove = "paper"
-            }
-            if move == "paper" {
-                winningMove = "scissors"
-            }
-            if move == "scissors" {
-                winningMove = "rock"
-            }
-        } else {
-            if move == "rock" {
-                winningMove = "scissors"
-            }
-            if move == "paper" {
-                winningMove = "rock"
-            }
-            if move == "scissors" {
-                winningMove = "paper"
-            }
+    enum Goal: String, CaseIterable {
+        case win, lose
+    }
+    
+    var move: Move
+    var goal: Goal
+    var winningMove: Move {
+        switch (move, goal) {
+        case (.rock, .win):
+            return .paper
+        case (.rock, .lose):
+            return .scissors
+        case (.paper, .win):
+            return .scissors
+        case (.paper, .lose):
+            return .rock
+        case (.scissors, .win):
+            return .rock
+        case (.scissors, .lose):
+            return .paper
         }
+    }
+    var points: Int = 0
+    var totalAsked = 1
+    var moveQueue: [(Move, Goal)]
+    var isDone: Bool = false
+    
+    init() {
+        self.move = Move.allCases.shuffled()[0]
+        self.goal = Goal.allCases.shuffled()[0]
+        self.moveQueue = (1...9).map{ _ in
+            (Move.allCases.shuffled()[0], Goal.allCases.shuffled()[0])
+        }
+    }
+    
+    init(move: Move, goal: Goal, moveQueue: [(Move, Goal)] = []) {
+        self.move = move
+        self.goal = goal
+        self.moveQueue = moveQueue
+    }
+    
+    func choseMove(_ choice: Move) {
+        if choice == winningMove {
+            points += 1
+        }
+        if let temp = moveQueue.popLast(){
+            move = temp.0
+            goal = temp.1
+        } else {
+            isDone = true
+        }
+        totalAsked += 1
+        //if so display ending screen
     }
 }
 
@@ -51,28 +78,38 @@ struct ContentView: View {
         self.model = model
     }
     
+    var isDoneView: some View {
+        Text("Is Done")
+    }
+    
     var body: some View {
-        VStack {
-            Text("Objective: \(model.goal) against \(model.move) using \(model.winningMove)")
-            HStack{
-                Button{
-                    
-                } label: {
-                    Text("Rock")
-                }
-                Button{
-                    
-                } label: {
-                    Text("Paper")
-                }
-                Button{
-                    
-                } label: {
-                    Text("Scissors")
+        if(model.isDone == false) {
+            VStack {
+                Text("Total Asked: \(model.totalAsked)")
+                Text("Current Score: \(model.points)")
+                Text("Objective: \(model.goal.rawValue) against \(model.move.rawValue) using \(model.winningMove.rawValue)")
+                HStack{
+                    Button{
+                        model.choseMove(.rock)
+                    } label: {
+                        Text("Rock")
+                    }
+                    Button{
+                        model.choseMove(.paper)
+                    } label: {
+                        Text("Paper")
+                    }
+                    Button{
+                        model.choseMove(.scissors)
+                    } label: {
+                        Text("Scissors")
+                    }
                 }
             }
+            .padding()
+        } else {
+            Text("Ending Screen")
         }
-        .padding()
     }
 }
 

@@ -9,38 +9,37 @@ import XCTest
 @testable import RockPaperScissorsSolve
 import StateTesting
 
-struct TestState: Equatable {
-    var move: String
-    var goal: String
-    var winningMove: String
-    
-    init(_ model: ContentModel) {
-        self.move = model.move
-        self.goal = model.goal
-        self.winningMove = model.winningMove
-    }
-}
-
 final class RockPaperScissorsSolveTests: XCTestCase {
     
-    let sut = ContentModel()
+    let sut = ContentModel(move: .paper, goal: .win)
 
-    override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+    func testWinningMove() {
+        XCTAssertEqual(ContentModel(move: .paper, goal: .win).winningMove, .scissors)
+        XCTAssertEqual(ContentModel(move: .paper, goal: .lose).winningMove, .rock)
+        XCTAssertEqual(ContentModel(move: .rock, goal: .win).winningMove, .paper)
+        XCTAssertEqual(ContentModel(move: .rock, goal: .lose).winningMove, .scissors)
+        XCTAssertEqual(ContentModel(move: .scissors, goal: .win).winningMove, .rock)
+        XCTAssertEqual(ContentModel(move: .scissors, goal: .lose).winningMove, .paper)
     }
-
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-    }
-
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-        // Any test you write for XCTest can be annotated as throws and async.
-        // Mark your test throws to produce an unexpected failure when your test encounters an uncaught error.
-        // Mark your test async to allow awaiting for asynchronous code to complete. Check the results with assertions afterwards.
-    }
-
     
-
+    func testButtonPress() {
+        let sut = ContentModel(move: .paper, goal: .win, moveQueue: [(.scissors, .lose)])
+        sut.choseMove(.scissors)
+        XCTAssertEqual(sut.points, 1)
+        XCTAssertEqual(sut.totalAsked, 1)
+        XCTAssertEqual(sut.move, .scissors)
+        XCTAssertEqual(sut.goal, .lose)
+        XCTAssertEqual(sut.isDone, false)
+        sut.choseMove(.paper)
+        XCTAssertEqual(sut.isDone, true)
+    }
+    
+    func testAskAllQuestions() {
+        let sut = ContentModel(
+            move: .paper,
+            goal: .win,
+            moveQueue: [ (.paper, .win), (.paper, .win), (.paper, .win),
+                         (.paper, .win), (.paper, .win), (.paper, .win),
+                         (.paper, .win), (.paper, .win), (.paper, .win), ])
+    }
 }
