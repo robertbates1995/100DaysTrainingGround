@@ -22,26 +22,19 @@ final class RockPaperScissorsSolveTests: XCTestCase {
         XCTAssertEqual(ContentModel(move: .scissors, goal: .lose).winningMove, .paper)
     }
     
-    func testButtonPress() {
-        let sut = ContentModel(move: .paper, goal: .win, moveQueue: [(.scissors, .lose)])
-        sut.choseMove(.scissors)
-        XCTAssertEqual(sut.points, 1)
-        XCTAssertEqual(sut.totalAsked, 2)
-        XCTAssertEqual(sut.move, .scissors)
-        XCTAssertEqual(sut.goal, .lose)
-        XCTAssertEqual(sut.isDone, false)
-        sut.choseMove(.paper)
-        XCTAssertEqual(sut.isDone, true)
-    }
-    
     func testAskAllQuestions() {
         let sut = ContentModel(
-            move: .paper,
-            goal: .win,
+            move: .scissors,
+            goal: .lose,
             moveQueue: [(.paper, .win), (.paper, .win), (.paper, .win),
                         (.paper, .win), (.paper, .win), (.paper, .win),
                         (.paper, .win), (.paper, .win), (.paper, .win),])
-        for _ in (1...9) {
+        sut.choseMove(.paper)
+        XCTAssertEqual(sut.move, .paper)
+        XCTAssertEqual(sut.goal, .win)
+        XCTAssertEqual(sut.points, 1)
+        XCTAssertEqual(sut.isDone, false)
+        for _ in (1...8) {
             sut.choseMove(.scissors)
         }
         sut.choseMove(.paper)
