@@ -63,10 +63,10 @@ class ContentModel {
         if let temp = moveQueue.popLast(){
             move = temp.0
             goal = temp.1
+            totalAsked += 1
         } else {
             isDone = true
         }
-        totalAsked += 1
         //if so display ending screen
     }
 }

@@ -38,8 +38,14 @@ final class RockPaperScissorsSolveTests: XCTestCase {
         let sut = ContentModel(
             move: .paper,
             goal: .win,
-            moveQueue: [ (.paper, .win), (.paper, .win), (.paper, .win),
-                         (.paper, .win), (.paper, .win), (.paper, .win),
-                         (.paper, .win), (.paper, .win), (.paper, .win), ])
+            moveQueue: [(.paper, .win), (.paper, .win), (.paper, .win),
+                        (.paper, .win), (.paper, .win), (.paper, .win),
+                        (.paper, .win), (.paper, .win), (.paper, .win),])
+        for _ in (1...10) {
+            sut.choseMove(.scissors)
+        }
+        XCTAssertEqual(sut.isDone, true)
+        XCTAssertEqual(sut.points, 10)
+        XCTAssertEqual(sut.totalAsked, 10)
     }
 }
