@@ -118,7 +118,7 @@ struct ContentView: View {
                         Button{
                             model.choseMove(.paper)
                         } label: {
-                            Image(.rock)
+                            Image(.paper)
                                 .resizable()
                                 .aspectRatio(contentMode: .fit)
                                 .clipShape(.rect(cornerRadius: 10))
@@ -127,7 +127,7 @@ struct ContentView: View {
                         Button{
                             model.choseMove(.scissors)
                         } label: {
-                            Image(.rock)
+                            Image(.scissors)
                                 .resizable()
                                 .aspectRatio(contentMode: .fit)
                                 .clipShape(.rect(cornerRadius: 10))
@@ -137,21 +137,30 @@ struct ContentView: View {
                     Spacer()
                 }
             } else {
-                VStack {
+                VStack{
                     Spacer()
-                    VStack{
-                        Text("GAME OVER")
+                    Text("GAME OVER")
+                        .font(.largeTitle.bold())
+                        .foregroundStyle(.white)
+                        .padding()
+                    Spacer()
+                    Spacer()
+                    Text("Your Score: \(model.points)")
+                        .padding()
+                        .font(.largeTitle.bold())
+                        .background(Color(red: 0.75, green: 0.7, blue: 0.65))
+                        .clipShape(.rect(cornerRadius: 10))
+                        .shadow(radius: 50)
+                    Spacer()
+                    Spacer()
+                    Button{
+                        model = ContentModel()
+                    } label: {
+                        Text("Play Again")
                             .font(.largeTitle.bold())
+                            .foregroundStyle(.white)
                             .padding()
-                        Text("Your Score: \(model.points)")
-                            .font(.largeTitle.bold())
                     }
-                    .padding()
-                    .background(.gray.opacity(0.97))
-                    .clipShape(.rect(cornerRadius: 10))
-                    .shadow(radius: 50)
-                    Spacer()
-                    Spacer()
                 }
             }
         }
