@@ -91,9 +91,17 @@ struct ContentView: View {
                 ], center: .top, startRadius: 200, endRadius: 700)
                 .ignoresSafeArea()
                 VStack {
-                    Text("Total Asked: \(model.totalAsked)").colorInvert()
-                    Text("Current Score: \(model.points)").colorInvert()
-                    Text("Objective: \(model.goal.rawValue) against \(model.move.rawValue) using \(model.winningMove.rawValue)").colorInvert()
+                    VStack {
+                        Text("Total Asked: \(model.totalAsked)")
+                            .font(.largeTitle.bold())
+                            .foregroundStyle(.white)
+                        Text("Current Score: \(model.points)")
+                            .font(.largeTitle.bold())
+                            .foregroundStyle(.white)
+                    } .padding()
+                    Text("\(model.goal.rawValue) against \(model.move.rawValue) using \(model.winningMove.rawValue)")
+                        .font(.largeTitle.lowercaseSmallCaps())
+                        .foregroundStyle(.white)
                     Spacer()
                     HStack{
                         Button{

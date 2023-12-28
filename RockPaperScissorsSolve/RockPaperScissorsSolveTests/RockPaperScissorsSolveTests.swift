@@ -26,7 +26,7 @@ final class RockPaperScissorsSolveTests: XCTestCase {
         let sut = ContentModel(move: .paper, goal: .win, moveQueue: [(.scissors, .lose)])
         sut.choseMove(.scissors)
         XCTAssertEqual(sut.points, 1)
-        XCTAssertEqual(sut.totalAsked, 1)
+        XCTAssertEqual(sut.totalAsked, 2)
         XCTAssertEqual(sut.move, .scissors)
         XCTAssertEqual(sut.goal, .lose)
         XCTAssertEqual(sut.isDone, false)
@@ -41,11 +41,12 @@ final class RockPaperScissorsSolveTests: XCTestCase {
             moveQueue: [(.paper, .win), (.paper, .win), (.paper, .win),
                         (.paper, .win), (.paper, .win), (.paper, .win),
                         (.paper, .win), (.paper, .win), (.paper, .win),])
-        for _ in (1...10) {
+        for _ in (1...9) {
             sut.choseMove(.scissors)
         }
+        sut.choseMove(.paper)
         XCTAssertEqual(sut.isDone, true)
-        XCTAssertEqual(sut.points, 10)
+        XCTAssertEqual(sut.points, 9)
         XCTAssertEqual(sut.totalAsked, 10)
     }
 }
