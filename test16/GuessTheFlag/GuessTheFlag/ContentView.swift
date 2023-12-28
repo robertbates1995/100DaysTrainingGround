@@ -55,6 +55,7 @@ struct ContentView: View {
                     Text("Tap the flag of")
                         .foregroundStyle(.white)
                         .font(.subheadline.weight(.heavy))
+                        
                     Text(model.countries[model.correctAnswer])
                         .foregroundStyle(.white)
                         .font(.subheadline.weight(.semibold))

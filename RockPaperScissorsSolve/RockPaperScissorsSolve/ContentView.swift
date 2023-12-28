@@ -67,7 +67,6 @@ class ContentModel {
         } else {
             isDone = true
         }
-        //if so display ending screen
     }
 }
 
@@ -78,54 +77,83 @@ struct ContentView: View {
         self.model = model
     }
     
-    var isDoneView: some View {
-        Text("Is Done")
-    }
-    
     var body: some View {
-        if(model.isDone == false) {
-            ZStack {
-                RadialGradient(stops: [
-                    .init(color: .black, location: 0.3),
-                    .init(color: .white, location: 0.3),
+        ZStack {
+            RadialGradient(
+                stops: [
+                    .init(color: .black, location: 0.25),
+                    .init(color: .yellow, location: 0.25),
+                    .init(color: .yellow, location: 0.3),
+                    .init(color: .red, location: 0.3),
+                    .init(color: .red, location: 0.35),
+                    .init(color: .blue, location: 0.35),
+                    .init(color: .blue, location: 0.4),
+                    .init(color: .indigo, location: 0.4),
                 ], center: .top, startRadius: 200, endRadius: 700)
-                .ignoresSafeArea()
+            .ignoresSafeArea()
+            if(model.isDone == false) {
                 VStack {
                     VStack {
-                        Text("Total Asked: \(model.totalAsked)")
+                        Text("\(model.totalAsked) / 10")
                             .font(.largeTitle.bold())
                             .foregroundStyle(.white)
                         Text("Current Score: \(model.points)")
                             .font(.largeTitle.bold())
                             .foregroundStyle(.white)
                     } .padding()
-                    Text("\(model.goal.rawValue) against \(model.move.rawValue) using \(model.winningMove.rawValue)")
+                    Text("\(model.goal.rawValue) against \(model.move.rawValue)")
                         .font(.largeTitle.lowercaseSmallCaps())
                         .foregroundStyle(.white)
-                    Spacer()
-                    HStack{
+                    Spacer(minLength: 200)
+                    VStack {
                         Button{
                             model.choseMove(.rock)
                         } label: {
-                            Text("Rock")
+                            Image(.rock)
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .clipShape(.rect(cornerRadius: 10))
+                                .shadow(radius: 50)
                         }
                         Button{
                             model.choseMove(.paper)
                         } label: {
-                            Text("Paper")
+                            Image(.rock)
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .clipShape(.rect(cornerRadius: 10))
+                                .shadow(radius: 50)
                         }
                         Button{
                             model.choseMove(.scissors)
                         } label: {
-                            Text("Scissors")
+                            Image(.rock)
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .clipShape(.rect(cornerRadius: 10))
+                                .shadow(radius: 50)
                         }
                     }
                     Spacer()
                 }
-                .padding()
+            } else {
+                VStack {
+                    Spacer()
+                    VStack{
+                        Text("GAME OVER")
+                            .font(.largeTitle.bold())
+                            .padding()
+                        Text("Your Score: \(model.points)")
+                            .font(.largeTitle.bold())
+                    }
+                    .padding()
+                    .background(.gray.opacity(0.97))
+                    .clipShape(.rect(cornerRadius: 10))
+                    .shadow(radius: 50)
+                    Spacer()
+                    Spacer()
+                }
             }
-        } else {
-            Text("Ending Screen")
         }
     }
 }
