@@ -11,8 +11,20 @@ import SwiftUI
 @Observable
 class ContentModel {
     
-    enum Move: String, CaseIterable {
+    enum Move: String, CaseIterable, Identifiable {
         case rock, paper, scissors
+        
+        var id: String { self.rawValue }
+        var image: ImageResource {
+            switch self {
+            case .rock:
+                .rock
+            case .paper:
+                .paper
+            case .scissors:
+                .scissors
+            }
+        }
     }
     
     enum Goal: String, CaseIterable {
@@ -41,6 +53,7 @@ class ContentModel {
     var totalAsked = 1
     var moveQueue: [(Move, Goal)]
     var isDone: Bool = false
+    
     
     init() {
         self.move = Move.allCases.shuffled()[0]
@@ -106,32 +119,16 @@ struct ContentView: View {
                         .foregroundStyle(.white)
                     Spacer(minLength: 200)
                     VStack {
-                        Button{
-                            model.choseMove(.rock)
-                        } label: {
-                            Image(.rock)
-                                .resizable()
-                                .aspectRatio(contentMode: .fit)
-                                .clipShape(.rect(cornerRadius: 10))
-                                .shadow(radius: 50)
-                        }
-                        Button{
-                            model.choseMove(.paper)
-                        } label: {
-                            Image(.paper)
-                                .resizable()
-                                .aspectRatio(contentMode: .fit)
-                                .clipShape(.rect(cornerRadius: 10))
-                                .shadow(radius: 50)
-                        }
-                        Button{
-                            model.choseMove(.scissors)
-                        } label: {
-                            Image(.scissors)
-                                .resizable()
-                                .aspectRatio(contentMode: .fit)
-                                .clipShape(.rect(cornerRadius: 10))
-                                .shadow(radius: 50)
+                        ForEach(ContentModel.Move.allCases) { move in
+                            Button{
+                                model.choseMove(move)
+                            } label: {
+                                Image(move.image)
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fit)
+                                    .clipShape(.rect(cornerRadius: 10))
+                                    .shadow(radius: 50)
+                            }
                         }
                     }
                     Spacer()
@@ -166,6 +163,7 @@ struct ContentView: View {
         }
     }
 }
+
 
 #Preview {
     ContentView()

@@ -7,7 +7,6 @@
 
 import XCTest
 @testable import RockPaperScissorsSolve
-import StateTesting
 
 final class RockPaperScissorsSolveTests: XCTestCase {
     
