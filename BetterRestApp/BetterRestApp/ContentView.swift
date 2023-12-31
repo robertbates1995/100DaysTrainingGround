@@ -7,15 +7,17 @@
 
 import SwiftUI
 
+@Observable
+class ContentModel {
+    var sleepAmount = 8.0
+    
+}
+
 struct ContentView: View {
+    @State private var model = ContentModel()
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
-        }
-        .padding()
+        Stepper("\(model.sleepAmount.formatted())", value: $model.sleepAmount, in: 4...12, step: 0.25)
     }
 }
 

@@ -10,7 +10,6 @@ import SwiftUI
 
 @Observable
 class ContentModel {
-    
     enum Move: String, CaseIterable, Identifiable {
         case rock, paper, scissors
         
