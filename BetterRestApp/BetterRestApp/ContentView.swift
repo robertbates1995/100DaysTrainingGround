@@ -65,7 +65,7 @@ struct ContentView: View {
                 VStack(alignment: .leading) {
                     Text("Daily coffee intake")
                         .font(.headline)
-                    Stepper("\(model.coffeeAmount) cup(s)", value: $model.coffeeAmount, in: model.coffeeRange)
+                    Stepper(model.coffeeAmount == 0 ? "None" : "^[\(model.coffeeAmount) cup](inflect: true)", value: $model.coffeeAmount, in: model.coffeeRange)
                 }
             }
             .navigationTitle("BetterRest")
