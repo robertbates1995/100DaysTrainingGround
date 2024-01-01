@@ -10,16 +10,21 @@ import SwiftUI
 
 @Observable
 class ContentModel {
-    var wakeUp = Date.now
+    var wakeUp = defaultWakeTime
     var sleepAmount = 8.0
     var coffeeAmount = 1
     let sleepRange: ClosedRange<Double> = 4...12
     let sleepStepValue = 0.25
     let coffeeRange = 0...20
-    
     var alertTitle = ""
     var alertMessage = ""
     var showingAlert = false
+    static var defaultWakeTime: Date {
+        var components = DateComponents()
+        components.hour = 7
+        components.minute = 0
+        return Calendar.current.date(from: components) ?? .now
+    }
     
     func calculateBedtime() {
         do {
@@ -45,25 +50,31 @@ struct ContentView: View {
     
     var body: some View {
         NavigationStack {
-            VStack {
-                Text("When do you want to wake up?")
-                    .font(.headline)
-                DatePicker("Please enter a time", selection: $model.wakeUp, displayedComponents: .hourAndMinute)
-                    .labelsHidden()
-                Text("Desired amount of sleep")
-                    .font(.headline)
-                Stepper("\(model.sleepAmount.formatted()) hours", value: $model.sleepAmount, in: model.sleepRange, step: model.sleepStepValue)
-                Text("Daily coffee intake")
-                    .font(.headline)
-                Stepper("\(model.coffeeAmount) cup(s)", value: $model.coffeeAmount, in: model.coffeeRange)
-            }.padding()
+            Form {
+                VStack(alignment: .leading) {
+                    Text("When do you want to wake up?")
+                        .font(.headline)
+                    DatePicker("Please enter a time", selection: $model.wakeUp, displayedComponents: .hourAndMinute)
+                        .labelsHidden()
+                }
+                VStack(alignment: .leading) {
+                    Text("Desired amount of sleep")
+                        .font(.headline)
+                    Stepper("\(model.sleepAmount.formatted()) hours", value: $model.sleepAmount, in: model.sleepRange, step: model.sleepStepValue)
+                }
+                VStack(alignment: .leading) {
+                    Text("Daily coffee intake")
+                        .font(.headline)
+                    Stepper("\(model.coffeeAmount) cup(s)", value: $model.coffeeAmount, in: model.coffeeRange)
+                }
+            }
             .navigationTitle("BetterRest")
             .toolbar {
                 Button("Calculate", action: model.calculateBedtime)
             }
             .alert(model.alertTitle, isPresented: $model.showingAlert) {
                 Button("OK") { }
-            }message: {
+            } message: {
                 Text(model.alertMessage)
             }
         }
