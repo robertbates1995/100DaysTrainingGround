@@ -14,6 +14,7 @@
 		7A1C5A282B40F7D300E1A533 /* BetterRestAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A1C5A272B40F7D300E1A533 /* BetterRestAppTests.swift */; };
 		7A1C5A322B40F7D300E1A533 /* BetterRestAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A1C5A312B40F7D300E1A533 /* BetterRestAppUITests.swift */; };
 		7A1C5A342B40F7D300E1A533 /* BetterRestAppUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A1C5A332B40F7D300E1A533 /* BetterRestAppUITestsLaunchTests.swift */; };
+		7AFA4A9E2B4376560041BC56 /* SleepCalculator.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 7AFA4A9D2B4376560041BC56 /* SleepCalculator.mlmodel */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +45,7 @@
 		7A1C5A2D2B40F7D300E1A533 /* BetterRestAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BetterRestAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7A1C5A312B40F7D300E1A533 /* BetterRestAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BetterRestAppUITests.swift; sourceTree = "<group>"; };
 		7A1C5A332B40F7D300E1A533 /* BetterRestAppUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BetterRestAppUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		7AFA4A9D2B4376560041BC56 /* SleepCalculator.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = SleepCalculator.mlmodel; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,6 +96,7 @@
 		7A1C5A152B40F7D100E1A533 /* BetterRestApp */ = {
 			isa = PBXGroup;
 			children = (
+				7AFA4A9D2B4376560041BC56 /* SleepCalculator.mlmodel */,
 				7A1C5A162B40F7D100E1A533 /* BetterRestAppApp.swift */,
 				7A1C5A182B40F7D100E1A533 /* ContentView.swift */,
 				7A1C5A1A2B40F7D200E1A533 /* Assets.xcassets */,
@@ -257,6 +260,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7AFA4A9E2B4376560041BC56 /* SleepCalculator.mlmodel in Sources */,
 				7A1C5A192B40F7D100E1A533 /* ContentView.swift in Sources */,
 				7A1C5A172B40F7D100E1A533 /* BetterRestAppApp.swift in Sources */,
 			);
