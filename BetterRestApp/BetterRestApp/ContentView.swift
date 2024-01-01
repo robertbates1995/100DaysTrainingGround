@@ -23,7 +23,17 @@ struct ContentView: View {
     @State private var model = ContentModel()
     
     var body: some View {
-        DatePicker("Please enter a date", selection: $model.wakeUp, displayedComponents: .hourAndMinute).labelsHidden().padding()
+        NavigationStack {
+            VStack {
+                Text("When do you want to wake up?")
+                    .font(.headline)
+
+                DatePicker("Please enter a time", selection: $model.wakeUp, displayedComponents: .hourAndMinute)
+                    .labelsHidden()
+
+                // more to come
+            }
+        }
     }
 }
 
