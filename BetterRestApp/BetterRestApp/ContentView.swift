@@ -47,6 +47,15 @@ class ContentModel {
 
 struct ContentView: View {
     @State private var model = ContentModel()
+    var desired: some View {
+        Section("Desired amount of sleep") {
+            Picker("Desired amount of sleep", selection: $model.sleepAmount) {
+                ForEach(4...12, id: \.self) {
+                    Text("\($0)")
+                }
+            }
+        }
+    }
     
     var body: some View {
         NavigationStack {
@@ -55,14 +64,7 @@ struct ContentView: View {
                     DatePicker("Please enter a time", selection: $model.wakeUp, displayedComponents: .hourAndMinute)
                         .labelsHidden()
                 }
-                Section("Desired amount of sleep") {
-                    Picker("Desired amount of sleep", selection: $model.sleepAmount) {
-                        ForEach(4...12, id: \.self) {
-                            Text($0, format: .list)
-                        }
-                    }
-                    Stepper("\(model.sleepAmount.formatted()) hours", value: $model.sleepAmount, in: model.sleepRange, step: model.sleepStepValue)
-                }
+                desired
                 Section("Daily coffee intake") {
                     Stepper(model.coffeeAmount == 0 ? "None" : "^[\(model.coffeeAmount) cup](inflect: true)", value: $model.coffeeAmount, in: model.coffeeRange)
                 }
