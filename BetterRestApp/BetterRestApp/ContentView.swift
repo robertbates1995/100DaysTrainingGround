@@ -13,7 +13,7 @@ class ContentModel {
     var wakeUp = defaultWakeTime
     var sleepAmount = 8.0
     var coffeeAmount = 1
-    let sleepRange: ClosedRange<Double> = 4...12
+    let sleepRange = 4...12
     let sleepStepValue = 0.25
     let coffeeRange = 0...20
     var alertTitle = ""
@@ -47,14 +47,18 @@ class ContentModel {
 
 struct ContentView: View {
     @State private var model = ContentModel()
-    var desired: some View {
+    func desired() -> some View {
         Section("Desired amount of sleep") {
             Picker("Desired amount of sleep", selection: $model.sleepAmount) {
-                ForEach(4...12, id: \.self) {
-                    Text("\($0)")
+                ForEach(model.sleepRange, id: \.self) {
+                    desiredText($0)
                 }
             }
         }
+    }
+    
+    func desiredText(_ label: Int) -> some View {
+        Text("\(label)")
     }
     
     var body: some View {
@@ -64,7 +68,7 @@ struct ContentView: View {
                     DatePicker("Please enter a time", selection: $model.wakeUp, displayedComponents: .hourAndMinute)
                         .labelsHidden()
                 }
-                desired
+                desired()
                 Section("Daily coffee intake") {
                     Stepper(model.coffeeAmount == 0 ? "None" : "^[\(model.coffeeAmount) cup](inflect: true)", value: $model.coffeeAmount, in: model.coffeeRange)
                 }
