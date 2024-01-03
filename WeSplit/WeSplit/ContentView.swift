@@ -37,7 +37,7 @@ struct ContentView: View {
                         ForEach(0...100, id: \.self) {
                             Text($0, format: .percent)
                         }
-                    }.pickerStyle(.navigationLink)
+                    }
                 }
                 
                 Section("total per person") {

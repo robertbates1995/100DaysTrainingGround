@@ -56,6 +56,11 @@ struct ContentView: View {
                         .labelsHidden()
                 }
                 Section("Desired amount of sleep") {
+                    Picker("Desired amount of sleep", selection: $model.sleepAmount) {
+                        ForEach(4...12, id: \.self) {
+                            Text($0, format: .list)
+                        }
+                    }
                     Stepper("\(model.sleepAmount.formatted()) hours", value: $model.sleepAmount, in: model.sleepRange, step: model.sleepStepValue)
                 }
                 Section("Daily coffee intake") {
