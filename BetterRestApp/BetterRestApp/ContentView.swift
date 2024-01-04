@@ -13,12 +13,11 @@ class ContentModel {
     var wakeUp = defaultWakeTime
     var sleepAmount = 8.0
     var coffeeAmount = 1
-    let sleepRange = 4...12
+    let sleepRange = (0...32).map({Double($0) * 0.25 + 4})
     let sleepStepValue = 0.25
     let coffeeRange = 0...20
-    var alertTitle = ""
-    var alertMessage = ""
-    var showingAlert = false
+    var bedTimeTitle: String? {calculateBedTimeTitle()}
+    var bedTimeMessage: String? {calculateBedTimeMessage()}
     static var defaultWakeTime: Date {
         var components = DateComponents()
         components.hour = 7
@@ -26,7 +25,21 @@ class ContentModel {
         return Calendar.current.date(from: components) ?? .now
     }
     
-    func calculateBedtime() {
+    func calculateBedTimeTitle() -> String? {
+        do {
+            let config = MLModelConfiguration()
+            let model = try SleepCalculator(configuration: config)
+            let components = Calendar.current.dateComponents([.hour, .minute], from: wakeUp)
+            let hour = (components.hour ?? 0) * 60 * 60
+            let minute = (components.minute ?? 0) * 60
+            let prediciton = try model.prediction(wake: Int64((hour + minute)), estimatedSleep: sleepAmount, coffee: Int64(coffeeAmount))
+            return "Your bedtime is..."
+        } catch {
+            return nil
+        }
+    }
+    
+    func calculateBedTimeMessage() -> String? {
         do {
             let config = MLModelConfiguration()
             let model = try SleepCalculator(configuration: config)
@@ -35,31 +48,16 @@ class ContentModel {
             let minute = (components.minute ?? 0) * 60
             let prediciton = try model.prediction(wake: Int64((hour + minute)), estimatedSleep: sleepAmount, coffee: Int64(coffeeAmount))
             let bedTime = wakeUp - prediciton.actualSleep
-            alertTitle = "Your bedtime is..."
-            alertMessage = bedTime.formatted(date: .omitted, time: .shortened)
+            return bedTime.formatted(date: .omitted, time: .shortened)
         } catch {
-            alertTitle = "Error"
-            alertMessage = "There was an issue calculating your bedtime."
+            return nil
         }
-        showingAlert = true
     }
 }
 
 struct ContentView: View {
-    @State private var model = ContentModel()
-    func desired() -> some View {
-        Section("Desired amount of sleep") {
-            Picker("Desired amount of sleep", selection: $model.sleepAmount) {
-                ForEach(model.sleepRange, id: \.self) {
-                    desiredText($0)
-                }
-            }
-        }
-    }
     
-    func desiredText(_ label: Int) -> some View {
-        Text("\(label)")
-    }
+    @State private var model = ContentModel()
     
     var body: some View {
         NavigationStack {
@@ -72,17 +70,26 @@ struct ContentView: View {
                 Section("Daily coffee intake") {
                     Stepper(model.coffeeAmount == 0 ? "None" : "^[\(model.coffeeAmount) cup](inflect: true)", value: $model.coffeeAmount, in: model.coffeeRange)
                 }
+                if(model.bedTimeTitle != nil && model.bedTimeMessage != nil) {
+                    Text(model.bedTimeTitle!)
+                    Text(model.bedTimeMessage!).font(.largeTitle.bold())
+                }
             }
             .navigationTitle("BetterRest")
-            .toolbar {
-                Button("Calculate", action: model.calculateBedtime)
-            }
-            .alert(model.alertTitle, isPresented: $model.showingAlert) {
-                Button("OK") { }
-            } message: {
-                Text(model.alertMessage)
+        }
+    }
+    
+    func desired() -> some View {
+        Section("Desired amount of sleep") {
+            Picker("Desired amount of sleep", selection: $model.sleepAmount) {
+                ForEach(model.sleepRange, id: \.self) {
+                    desiredText($0)
+                }
             }
         }
+    }
+    func desiredText(_ label: Double) -> some View {
+        Text(label.formatted())
     }
 }
 
