@@ -17,6 +17,15 @@ class ContentModel {
     var errorMessage = ""
     var showingError = false
     
+    init(usedWords: [String] = [String](), rootWord: String = "", newWord: String = "", errorTitle: String = "", errorMessage: String = "", showingError: Bool = false) {
+        self.usedWords = usedWords
+        self.rootWord = rootWord
+        self.newWord = newWord
+        self.errorTitle = errorTitle
+        self.errorMessage = errorMessage
+        self.showingError = showingError
+    }
+    
     func addNewWord() {
         let answer = newWord.lowercased().trimmingCharacters(in: .whitespacesAndNewlines)
         guard answer.count > 0 else { return }
@@ -25,7 +34,7 @@ class ContentModel {
             return
         }
         guard isPossible(word: answer) else {
-            wordError(title: "Word word now possible", message: "\(answer) cannot be spelled using \(rootWord)")
+            wordError(title: "Word not possible", message: "\(answer) cannot be spelled using \(rootWord)")
             return
         }
         guard isReal(word: answer) else {
