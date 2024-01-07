@@ -7,29 +7,75 @@
 
 import SwiftUI
 
+@Observable
 class ContentModel {
     var usedWords = [String]()
     var rootWord = ""
     var newWord = ""
     
-    func testBundles() {
-        if let fileURL = Bundle.main.url(forResource: "somefile", withExtension: "txt") {
-            if let fileContents = try? String(contentsOf: fileURL) {
-                
-            }
+    var errorTitle = ""
+    var errorMessage = ""
+    var showingError = false
+    
+    func addNewWord() {
+        let answer = newWord.lowercased().trimmingCharacters(in: .whitespacesAndNewlines)
+        guard answer.count > 0 else { return }
+        guard isOriginal(word: answer) else {
+            wordError(title: "word used already", message: "non-unique word entered.")
+            return
         }
+        guard isPossible(word: answer) else {
+            wordError(title: "Word word now possible", message: "\(answer) cannot be spelled using \(rootWord)")
+            return
+        }
+        guard isReal(word: answer) else {
+            wordError(title: "Word not recognized", message: "This word is not recognized as part of the english language")
+            return
+        }
+        withAnimation {
+            usedWords.insert(answer, at: 0)
+        }
+        newWord = ""
     }
     
-    func testString() {
-        let sut = "a\nb\nc"
-        let letters = sut.components(separatedBy: "\n")
-        let letter = letters.randomElement()
-        let trimmed = letter?.trimmingCharacters(in: .whitespacesAndNewlines)
-        let word = "swift"
+    func startNewGame() {
+        if let startWordsURL = Bundle.main.url(forResource: "start", withExtension: "txt") {
+            if let startWords = try? String(contentsOf: startWordsURL) {
+                let allWords = startWords.components(separatedBy: "\n")
+                rootWord = allWords.randomElement() ?? "silkworm"
+                return
+            }
+        }
+        fatalError("Could not load start.txt from bundle.")
+    }
+    
+    func isOriginal(word: String) -> Bool {
+        !usedWords.contains(word)
+    }
+    
+    func isPossible(word: String) -> Bool {
+        var tempWord = rootWord
+        for letter in word {
+            if let pos = tempWord.firstIndex(of: letter) {
+                tempWord.remove(at: pos)
+            } else {
+                return false
+            }
+        }
+        return true
+    }
+    
+    func isReal(word: String) -> Bool {
         let checker = UITextChecker()
         let range = NSRange(location: 0, length: word.utf16.count)
         let misspelledRange = checker.rangeOfMisspelledWord(in: word, range: range, startingAt: 0, wrap: false, language: "en")
-        let allGood = misspelledRange.location == NSNotFound
+        return misspelledRange.location == NSNotFound
+    }
+    
+    func wordError(title: String, message: String) {
+        errorTitle = title
+        errorMessage = message
+        showingError = true
     }
 }
 
@@ -40,7 +86,19 @@ struct ContentView: View {
         List {
             Section {
                 TextField("Enter your word", text: $model.newWord)
+                    .textInputAutocapitalization(.never)
             }
+            Section {
+                ForEach(model.usedWords, id: \.self) { word in
+                    Text(word)
+                }
+            }
+        }
+        .navigationTitle(model.rootWord)
+        .onAppear(perform: model.startNewGame)
+        .onSubmit(model.addNewWord)
+        .alert(model.errorTitle, isPresented: $model.showingError) { } message: {
+            Text(model.errorMessage)
         }
     }
 }
