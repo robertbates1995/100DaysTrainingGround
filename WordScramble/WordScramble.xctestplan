@@ -1,0 +1,29 @@
+{
+  "configurations" : [
+    {
+      "id" : "C4B15332-5D94-49A4-95B3-CCC68CE745B0",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "targetForVariableExpansion" : {
+      "containerPath" : "container:WordScramble.xcodeproj",
+      "identifier" : "7AFA4AA72B475CDA0041BC56",
+      "name" : "WordScramble"
+    }
+  },
+  "testTargets" : [
+    {
+      "parallelizable" : true,
+      "target" : {
+        "containerPath" : "container:WordScramble.xcodeproj",
+        "identifier" : "7AFA4AB72B475CDC0041BC56",
+        "name" : "WordScrambleTests"
+      }
+    }
+  ],
+  "version" : 1
+}

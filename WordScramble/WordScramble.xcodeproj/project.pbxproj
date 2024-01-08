@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7A7F1AF12B4C980B00B476F8 /* StateTesting in Frameworks */ = {isa = PBXBuildFile; productRef = 7A7F1AF02B4C980B00B476F8 /* StateTesting */; };
 		7AFA4AAC2B475CDA0041BC56 /* WordScrambleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AFA4AAB2B475CDA0041BC56 /* WordScrambleApp.swift */; };
 		7AFA4AAE2B475CDA0041BC56 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AFA4AAD2B475CDA0041BC56 /* ContentView.swift */; };
 		7AFA4AB02B475CDC0041BC56 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7AFA4AAF2B475CDC0041BC56 /* Assets.xcassets */; };
@@ -26,6 +27,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		7A7F1AEB2B4C967600B476F8 /* WordScramble.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = WordScramble.xctestplan; sourceTree = "<group>"; };
 		7AFA4AA82B475CDA0041BC56 /* WordScramble.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WordScramble.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7AFA4AAB2B475CDA0041BC56 /* WordScrambleApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordScrambleApp.swift; sourceTree = "<group>"; };
 		7AFA4AAD2B475CDA0041BC56 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -48,6 +50,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7A7F1AF12B4C980B00B476F8 /* StateTesting in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -57,6 +60,7 @@
 		7AFA4A9F2B475CDA0041BC56 = {
 			isa = PBXGroup;
 			children = (
+				7A7F1AEB2B4C967600B476F8 /* WordScramble.xctestplan */,
 				7AFA4AAA2B475CDA0041BC56 /* WordScramble */,
 				7AFA4ABB2B475CDC0041BC56 /* WordScrambleTests */,
 				7AFA4AA92B475CDA0041BC56 /* Products */,
@@ -116,6 +120,8 @@
 			dependencies = (
 			);
 			name = WordScramble;
+			packageProductDependencies = (
+			);
 			productName = WordScramble;
 			productReference = 7AFA4AA82B475CDA0041BC56 /* WordScramble.app */;
 			productType = "com.apple.product-type.application";
@@ -134,6 +140,9 @@
 				7AFA4ABA2B475CDC0041BC56 /* PBXTargetDependency */,
 			);
 			name = WordScrambleTests;
+			packageProductDependencies = (
+				7A7F1AF02B4C980B00B476F8 /* StateTesting */,
+			);
 			productName = WordScrambleTests;
 			productReference = 7AFA4AB82B475CDC0041BC56 /* WordScrambleTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
@@ -166,6 +175,9 @@
 				Base,
 			);
 			mainGroup = 7AFA4A9F2B475CDA0041BC56;
+			packageReferences = (
+				7A7F1AEF2B4C980B00B476F8 /* XCRemoteSwiftPackageReference "StateTesting" */,
+			);
 			productRefGroup = 7AFA4AA92B475CDA0041BC56 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -473,6 +485,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		7A7F1AEF2B4C980B00B476F8 /* XCRemoteSwiftPackageReference "StateTesting" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/robertbates1995/StateTesting";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		7A7F1AF02B4C980B00B476F8 /* StateTesting */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7A7F1AEF2B4C980B00B476F8 /* XCRemoteSwiftPackageReference "StateTesting" */;
+			productName = StateTesting;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 7AFA4AA02B475CDA0041BC56 /* Project object */;
 }

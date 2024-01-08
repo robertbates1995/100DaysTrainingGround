@@ -26,9 +26,8 @@ struct TestState: Equatable {
 }
 
 final class GuessTheFlagTests: XCTestCase {
-    
     let sut = ContentModel()
-    lazy var foo = Foo(given: {TestState(self.sut)})
+    lazy var foo = StateTester(given: {TestState(self.sut)})
     
     func testCorrectFlagTapped() {
         foo.when({sut.flagTapped(sut.correctAnswer)}) {
