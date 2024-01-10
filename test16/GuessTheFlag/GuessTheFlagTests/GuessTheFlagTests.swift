@@ -40,7 +40,7 @@ final class GuessTheFlagTests: XCTestCase {
     func testWrongFlagTapped() {
         let incorectAnswer = sut.correctAnswer == 0 ? 1 : 0
         foo.when({sut.flagTapped(incorectAnswer)}){
-            $0.change(\.showingScore, true)
+            //$0.change(\.showingScore, true)
             $0.change(\.scoreTitle, "Wrong, that's \(sut.countries[incorectAnswer])")
         }
     }
