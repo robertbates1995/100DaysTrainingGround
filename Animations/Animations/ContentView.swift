@@ -13,29 +13,37 @@ class ContentModel {
 }
 
 struct ContentView: View {
-    @State var model = ContentModel()
+    @State private var animationAmount = 1.0
     
     var body: some View {
-        Button("Tap Me") {
-            //model.animationAmount += 1.0
-        }
-        .padding(50)
-        .background(.red)
-        .foregroundStyle(.white)
-        .clipShape(.circle)
-        .overlay(
-            Circle()
-                .stroke(.red)
-                .scaleEffect(model.animationAmount)
-                .opacity(2 - model.animationAmount)
-                .animation(
-                    .easeInOut(duration: 0.5)
-                    .repeatCount(2, autoreverses: false),
-                    value: model.animationAmount
-                )
-        )
-        .onAppear {
-            model.animationAmount = 2
+        VStack {
+            Stepper(
+                "Scale amount",
+                value: $animationAmount.animation(
+                    .easeInOut(duration: 0.3)
+                    .repeatCount(3, autoreverses: true)
+                ),
+                in: 1...10
+            )
+            
+            Spacer()
+            
+            Button("Tap me") {
+                animationAmount += 1
+            }
+            .padding(40)
+            .background(.red)
+            .foregroundStyle(.white)
+            .clipShape(.circle)
+            .scaleEffect(animationAmount)
+            
+            Button("test") {
+                
+            }
+            .padding(40)
+            .background(.red)
+            .foregroundStyle(.white)
+            .clipShape(.circle)
         }
     }
 }
