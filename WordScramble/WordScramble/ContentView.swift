@@ -12,6 +12,7 @@ class ContentModel {
     var usedWords = [String]()
     var rootWord = ""
     var newWord = ""
+    var score = 0
     
     var errorTitle = ""
     var errorMessage = ""
@@ -48,6 +49,7 @@ class ContentModel {
         withAnimation {
             usedWords.insert(answer, at: 0)
         }
+        score += 1
         newWord = ""
     }
     
@@ -56,6 +58,8 @@ class ContentModel {
             if let startWords = try? String(contentsOf: startWordsURL) {
                 let allWords = startWords.components(separatedBy: "\n")
                 rootWord = allWords.randomElement() ?? "silkworm"
+                score = 0
+                usedWords = [String]()
                 return
             }
         }
@@ -106,6 +110,7 @@ struct ContentView: View {
                         .textInputAutocapitalization(.never)
                 }
                 Section {
+                    Text("Score: \(model.score)")
                     ForEach(model.usedWords, id: \.self) {
                         Text($0)
                     }

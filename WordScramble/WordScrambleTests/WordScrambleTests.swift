@@ -16,6 +16,7 @@ struct TestState: Equatable {
     var errorTitle: String
     var errorMessage: String
     var showingError: Bool
+    var score: Int
     
     init(_ model: ContentModel) {
         self.usedWords = model.usedWords
@@ -24,6 +25,7 @@ struct TestState: Equatable {
         self.errorTitle = model.errorTitle
         self.errorMessage = model.errorMessage
         self.showingError = model.showingError
+        self.score = model.score
     }
 }
 
@@ -39,6 +41,7 @@ final class WordScrambleTests: XCTestCase {
         given.when({sut.addNewWord()}) {
             $0.change(\.usedWords, [testAnswer])
             $0.change(\.newWord, "")
+            $0.change(\.score, 1)
         }
     }
     
@@ -49,6 +52,7 @@ final class WordScrambleTests: XCTestCase {
         given.when({sut.addNewWord()}) {
             $0.change(\.usedWords, [testAnswer, "word1"])
             $0.change(\.newWord, "")
+            $0.change(\.score, 1)
         }
     }
     
