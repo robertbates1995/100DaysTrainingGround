@@ -30,31 +30,42 @@ struct TestState: Equatable {
 final class WordScrambleTests: XCTestCase {
     let sut = ContentModel()
     lazy var given = StateTester(given: {TestState(self.sut)})
-    let testWord = "abetting"
+    let testRoot = "dog"
+    let testAnswer = "god"
 
     func testAddNewWordToEmptyArray() {
-        sut.rootWord = testWord
-        sut.newWord = testWord
+        sut.rootWord = testRoot
+        sut.newWord = testAnswer
         given.when({sut.addNewWord()}) {
-            $0.change(\.usedWords, [testWord])
+            $0.change(\.usedWords, [testAnswer])
             $0.change(\.newWord, "")
         }
     }
     
     func testAddNewWordToPopulatedArray() {
         sut.usedWords = ["word1"]
-        sut.rootWord = testWord
-        sut.newWord = testWord
+        sut.rootWord = testRoot
+        sut.newWord = testAnswer
         given.when({sut.addNewWord()}) {
-            $0.change(\.usedWords, ["abetting", "word1"])
+            $0.change(\.usedWords, [testAnswer, "word1"])
             $0.change(\.newWord, "")
         }
     }
     
+    func testAddRootWord() {
+        sut.rootWord = testRoot
+        sut.newWord = testRoot
+        given.when({sut.addNewWord()}) {
+            $0.change(\.errorTitle, "word used already")
+            $0.change(\.errorMessage, "non-unique word entered.")
+            $0.change(\.showingError, true)
+        }
+    }
+    
     func testAddRepeatedWord() {
-        sut.usedWords = [testWord]
-        sut.rootWord = testWord
-        sut.newWord = testWord
+        sut.usedWords = [testRoot]
+        sut.rootWord = testRoot
+        sut.newWord = testRoot
         given.when({sut.addNewWord()}) {
             $0.change(\.errorTitle, "word used already")
             $0.change(\.errorMessage, "non-unique word entered.")

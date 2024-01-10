@@ -33,6 +33,10 @@ class ContentModel {
             wordError(title: "word used already", message: "non-unique word entered.")
             return
         }
+        guard isLongEnough(word: answer) else {
+            wordError(title: "word not long enough", message: "your word is too short.")
+            return
+        }
         guard isPossible(word: answer) else {
             wordError(title: "Word not possible", message: "\(answer) cannot be spelled using \(rootWord)")
             return
@@ -59,7 +63,11 @@ class ContentModel {
     }
     
     func isOriginal(word: String) -> Bool {
-        !usedWords.contains(word)
+        !usedWords.contains(word) && (word != rootWord)
+    }
+    
+    func isLongEnough(word: String) -> Bool {
+        return (word.count > 2)
     }
     
     func isPossible(word: String) -> Bool {
@@ -104,6 +112,11 @@ struct ContentView: View {
                 }
             }
             .navigationTitle(model.rootWord)
+            .toolbar {
+                Button("Reset") {
+                    model.startNewGame()
+                }
+            }
             .onAppear(perform: model.startNewGame)
             .onSubmit(model.addNewWord)
             .alert(model.errorTitle, isPresented: $model.showingError) { } message: {
