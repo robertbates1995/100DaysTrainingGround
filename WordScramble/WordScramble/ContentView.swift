@@ -92,26 +92,28 @@ struct ContentView: View {
     @State var model = ContentModel()
     
     var body: some View {
-        List {
-            Section {
-                TextField("Enter your word", text: $model.newWord)
-                    .textInputAutocapitalization(.never)
-            }
-            Section {
-                ForEach(model.usedWords, id: \.self) { word in
-                    Text(word)
+            List {
+                Section {
+                    TextField("Enter your word", text: $model.newWord)
+                        .textInputAutocapitalization(.never)
+                }
+                Section {
+                    ForEach(model.usedWords, id: \.self) {
+                        Text($0)
+                    }
                 }
             }
+            .navigationTitle(model.rootWord)
+            .onAppear(perform: model.startNewGame)
+            .onSubmit(model.addNewWord)
+            .alert(model.errorTitle, isPresented: $model.showingError) { } message: {
+                Text(model.errorMessage)
+            }
         }
-        .navigationTitle(model.rootWord)
-        .onAppear(perform: model.startNewGame)
-        .onSubmit(model.addNewWord)
-        .alert(model.errorTitle, isPresented: $model.showingError) { } message: {
-            Text(model.errorMessage)
-        }
-    }
 }
 
 #Preview {
-    ContentView()
+    NavigationView {
+        ContentView()
+    }
 }
