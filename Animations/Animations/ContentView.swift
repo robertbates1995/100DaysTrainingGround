@@ -7,7 +7,13 @@
 
 import SwiftUI
 
+struct ContentModel: Equatable {
+    var animationAmount = 1.0
+}
+
 struct ContentView: View {
+    @State var model = ContentModel()
+    
     var body: some View {
         VStack {
             Image(systemName: "globe")
