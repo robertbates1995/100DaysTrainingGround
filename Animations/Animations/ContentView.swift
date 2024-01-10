@@ -15,13 +15,13 @@ struct ContentView: View {
     @State var model = ContentModel()
     
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        Button("Tap Me") {
+            // do nothing
         }
-        .padding()
+        .padding(50)
+        .background(.red)
+        .foregroundStyle(.white)
+        .clipShape(.circle)
     }
 }
 
