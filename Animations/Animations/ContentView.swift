@@ -7,7 +7,8 @@
 
 import SwiftUI
 
-struct ContentModel: Equatable {
+@Observable
+class ContentModel {
     var animationAmount = 1.0
 }
 
@@ -16,12 +17,15 @@ struct ContentView: View {
     
     var body: some View {
         Button("Tap Me") {
-            // do nothing
+            model.animationAmount += 1.0
         }
         .padding(50)
         .background(.red)
         .foregroundStyle(.white)
         .clipShape(.circle)
+        .scaleEffect(model.animationAmount)
+        .blur(radius: (model.animationAmount - 1) * 3)
+        .animation(.default, value: model.animationAmount)
     }
 }
 
