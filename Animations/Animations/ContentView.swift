@@ -13,19 +13,19 @@ class ContentModel {
 }
 
 struct ContentView: View {
-    @State private var animationAmount = 1.0
+    @Bindable var model = ContentModel()
     
     var body: some View {
         Button("Tap me") {
             withAnimation {
-                animationAmount += 360
+                model.animationAmount += 360
             }
         }
         .padding(50)
         .background(.red)
         .foregroundStyle(.white)
         .clipShape(.circle)
-        .rotation3DEffect(.degrees(animationAmount), axis: (x: 0, y: 1, z: 1))
+        .rotation3DEffect(.degrees(model.animationAmount), axis: (x: 0, y: 1, z: 1))
     }
 }
 
