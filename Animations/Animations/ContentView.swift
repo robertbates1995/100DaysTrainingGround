@@ -22,7 +22,9 @@ struct ContentView: View {
     var body: some View {
         VStack {
             Button("Tap me") {
-                model.isShowingRed.toggle()
+                withAnimation {
+                    model.isShowingRed.toggle()
+                }
             }
             
             if model.isShowingRed {
