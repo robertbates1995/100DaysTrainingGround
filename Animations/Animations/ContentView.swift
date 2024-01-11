@@ -11,21 +11,27 @@ import SwiftUI
 class ContentModel {
     var animationAmount = 1.0
     var enabled = false
+    var dragAmount = CGSize.zero
 }
 
 struct ContentView: View {
     @Bindable var model = ContentModel()
     
     var body: some View {
-        Button("Tap me") {
-            model.enabled.toggle()
-        }
-        .frame(width: 200, height: 200)
-        .background(model.enabled ? .blue : .red)
-        .foregroundStyle(.white)
-        .animation(.default, value: model.enabled)
-        .clipShape(.rect(cornerRadius: model.enabled ? 60 : 0))
-        .animation(.spring(duration: 1, bounce: 0.9), value: model.enabled)
+        LinearGradient(
+            colors: [.yellow, .red],
+            startPoint: .topLeading,
+            endPoint: .bottomTrailing
+        )
+        .frame(width: 300, height: 200)
+        .clipShape(.rect(cornerRadius: 10))
+        .offset(model.dragAmount)
+        .gesture(
+            DragGesture()
+                .onChanged { model.dragAmount = $0.translation }
+                .onEnded { _ in model.dragAmount = .zero }
+        )
+        .animation(.bouncy, value: model.dragAmount)
     }
 }
 
