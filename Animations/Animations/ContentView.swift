@@ -10,6 +10,7 @@ import SwiftUI
 @Observable
 class ContentModel {
     var animationAmount = 1.0
+    var enabled = false
 }
 
 struct ContentView: View {
@@ -17,15 +18,14 @@ struct ContentView: View {
     
     var body: some View {
         Button("Tap me") {
-            withAnimation {
-                model.animationAmount += 360
-            }
+            model.enabled.toggle()
         }
-        .padding(50)
-        .background(.red)
+        .frame(width: 200, height: 200)
+        .background(model.enabled ? .blue : .red)
         .foregroundStyle(.white)
-        .clipShape(.circle)
-        .rotation3DEffect(.degrees(model.animationAmount), axis: (x: 0, y: 1, z: 1))
+        .animation(.default, value: model.enabled)
+        .clipShape(.rect(cornerRadius: model.enabled ? 60 : 0))
+        .animation(.spring(duration: 1, bounce: 0.9), value: model.enabled)
     }
 }
 
