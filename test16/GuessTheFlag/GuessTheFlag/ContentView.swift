@@ -15,7 +15,7 @@ class ContentModel {
     var userScore = 0
     var totalAsked = 1
     var correctAnswer = Int.random(in: 0...2)
-    var animationAmount = 0.0
+    var animationAmounts = [0.0,0,0]
     
     func flagTapped(_ number: Int) {
         if number == correctAnswer {
@@ -60,19 +60,17 @@ struct ContentView: View {
                         .foregroundStyle(.white)
                         .font(.subheadline.weight(.semibold))
                     ForEach(0..<3) { number in
-                        var isTapped = false
                         Button {
                             //model.flagTapped(number)
                             withAnimation {
-                                model.animationAmount += 180
+                                model.animationAmounts[number] += 180
                             }
                         } label: {
                             Image(model.countries[number])
                                 .clipShape(.rect(cornerRadius: 10))
                                 .shadow(radius: 50)
-                                .rotation3DEffect(.degrees(model.animationAmount), axis: (x: 0, y: 1, z: 0))
+                                .rotation3DEffect(.degrees(model.animationAmounts[number]), axis: (x: 0, y: 1, z: 0))
                         }
-                        
                     }
                 }
                 .alert(model.scoreTitle, isPresented: $model.showingScore) {
