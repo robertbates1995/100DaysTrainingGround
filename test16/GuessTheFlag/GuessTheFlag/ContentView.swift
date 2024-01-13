@@ -15,7 +15,8 @@ class ContentModel {
     var userScore = 0
     var totalAsked = 1
     var correctAnswer = Int.random(in: 0...2)
-    var animationAmounts = [0.0,0,0]
+    var rotationAmounts = [0.0,0,0]
+    var opacityAmounts = [1.0,1,1]
     
     func flagTapped(_ number: Int) {
         if number == correctAnswer {
@@ -63,13 +64,16 @@ struct ContentView: View {
                         Button {
                             //model.flagTapped(number)
                             withAnimation {
-                                model.animationAmounts[number] += 180
+                                model.rotationAmounts[number] += 360
+                                model.opacityAmounts[number] += 0.25
+                                model.opacityAmounts = model.opacityAmounts.map({ $0 - 0.25 })
                             }
                         } label: {
                             Image(model.countries[number])
                                 .clipShape(.rect(cornerRadius: 10))
+                                .opacity(model.opacityAmounts[number])
                                 .shadow(radius: 50)
-                                .rotation3DEffect(.degrees(model.animationAmounts[number]), axis: (x: 0, y: 1, z: 0))
+                                .rotation3DEffect(.degrees(model.rotationAmounts[number]), axis: (x: 0, y: 1, z: 0))
                         }
                     }
                 }
