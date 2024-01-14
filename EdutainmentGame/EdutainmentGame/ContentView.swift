@@ -9,8 +9,10 @@ import SwiftUI
 
 @Observable
 class ContentModel {
-    var upperLimit = 1
-    var numberOfQuestions = [5, 10, 20]
+    var numberOfQuestionsRange = [5, 10, 20]
+    var numberOfQuestions = 5
+    var upperLimit = 10
+    var limitRange = (1...12)
 }
 
 struct ContentView: View {
@@ -19,11 +21,16 @@ struct ContentView: View {
     var body: some View {
         List {
             Section("Number of Questions") {
-                Picker("", selection: $model.upperLimit) {
-                    ForEach(model.numberOfQuestions, id: \.self) {
+                Picker("", selection: $model.numberOfQuestions) {
+                    ForEach(model.numberOfQuestionsRange, id: \.self) {
                         Text($0.formatted())
                     }
                 }.pickerStyle(.segmented)
+            }
+            Section("Upper Limit") {
+                Stepper("\(model.upperLimit)", value: $model.upperLimit, in: model.limitRange) { _ in 
+                    
+                }
             }
         }
     }
