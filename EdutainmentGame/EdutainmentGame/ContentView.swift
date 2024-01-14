@@ -7,15 +7,25 @@
 
 import SwiftUI
 
+@Observable
+class ContentModel {
+    var upperLimit = 1
+    var numberOfQuestions = [5, 10, 20]
+}
+
 struct ContentView: View {
+    @State var model = ContentModel()
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        List {
+            Section("Number of Questions") {
+                Picker("", selection: $model.upperLimit) {
+                    ForEach(model.numberOfQuestions, id: \.self) {
+                        Text($0.formatted())
+                    }
+                }.pickerStyle(.segmented)
+            }
         }
-        .padding()
     }
 }
 

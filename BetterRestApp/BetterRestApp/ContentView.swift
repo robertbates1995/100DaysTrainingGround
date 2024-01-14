@@ -83,13 +83,10 @@ struct ContentView: View {
         Section("Desired amount of sleep") {
             Picker("Desired amount of sleep", selection: $model.sleepAmount) {
                 ForEach(model.sleepRange, id: \.self) {
-                    desiredText($0)
+                    Text($0.formatted())
                 }
             }
         }
-    }
-    func desiredText(_ label: Double) -> some View {
-        Text(label.formatted())
     }
 }
 
