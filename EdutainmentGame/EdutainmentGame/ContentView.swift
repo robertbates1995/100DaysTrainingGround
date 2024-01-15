@@ -12,25 +12,36 @@ class ContentModel {
     var numberOfQuestionsRange = [5, 10, 20]
     var numberOfQuestions = 5
     var upperLimit = 10
-    var limitRange = (1...12)
+    var limitRange = (2...12)
+    var isPlaying = false
+    var isOver = false
+    
+    func startGame() { }
+    
 }
 
 struct ContentView: View {
     @State var model = ContentModel()
     
     var body: some View {
-        List {
-            Section("Number of Questions") {
-                Picker("", selection: $model.numberOfQuestions) {
-                    ForEach(model.numberOfQuestionsRange, id: \.self) {
-                        Text($0.formatted())
+        NavigationStack {
+            if(model.isPlaying){
+                
+            } else {
+                List {
+                    Section("Number of Questions") {
+                        Picker("", selection: $model.numberOfQuestions) {
+                            ForEach(model.numberOfQuestionsRange, id: \.self) {
+                                Text($0.formatted())
+                            }
+                        }.pickerStyle(.segmented)
                     }
-                }.pickerStyle(.segmented)
-            }
-            Section("Upper Limit") {
-                Stepper("\(model.upperLimit)", value: $model.upperLimit, in: model.limitRange) { _ in 
-                    
-                }
+                    Section("Upper Limit") {
+                        Stepper("\(model.upperLimit)", value: $model.upperLimit, in: model.limitRange) { _ in
+                            
+                        }
+                    }
+                }.navigationTitle("Edutainment App")
             }
         }
     }
