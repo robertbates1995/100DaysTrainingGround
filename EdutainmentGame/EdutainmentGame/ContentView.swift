@@ -7,14 +7,19 @@
 
 import SwiftUI
 
+
+
 @Observable
 class ContentModel {
     var numberOfQuestionsRange = [5, 10, 20]
     var numberOfQuestions = 5
     var upperLimit = 10
     var limitRange = (2...12)
-    var isPlaying = false
-    var isOver = false
+    var gameState = gameState.setup
+    
+    enum gameState {
+        case setup, playing, over
+    }
     
     func startGame() { }
     
@@ -25,9 +30,8 @@ struct ContentView: View {
     
     var body: some View {
         NavigationStack {
-            if(model.isPlaying){
-                
-            } else {
+            switch model.gameState {
+            case .setup:
                 List {
                     Section("Number of Questions") {
                         Picker("", selection: $model.numberOfQuestions) {
@@ -47,6 +51,10 @@ struct ContentView: View {
                         }
                     }
                 }.navigationTitle("Edutainment App")
+            case .playing:
+                Text("playing test string")
+            case .over:
+                Text("over test string")
             }
         }
     }
