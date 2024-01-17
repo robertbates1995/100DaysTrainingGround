@@ -41,6 +41,11 @@ struct ContentView: View {
                             
                         }
                     }
+                    Section("Start Game") {
+                        Button("Start") {
+                            
+                        }
+                    }
                 }.navigationTitle("Edutainment App")
             }
         }
