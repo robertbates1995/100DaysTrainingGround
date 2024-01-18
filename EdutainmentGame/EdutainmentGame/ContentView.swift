@@ -35,6 +35,16 @@ class ContentModel {
         }
         self.gameState = .playing
     }
+    
+    func questionSubmit() {
+        if userAnswer == questions[numberOfQuestions - 1].2 {
+            score += 1
+        }
+        numberOfQuestions -= 1
+        if numberOfQuestions < 1 {
+            self.gameState = .over
+        }
+    }
 }
 
 struct ContentView: View {
@@ -74,14 +84,12 @@ struct ContentView: View {
     }
     
     func gameView() -> some View {
-        if model.numberOfQuestions < 1 {
-            model.gameState = .over
-        }
-        
-        
         return List {
-            Section("what is ") {
+            Section("what is \(model.questions[model.numberOfQuestions - 1].0) x \(model.questions[model.numberOfQuestions - 1].1)") {
                 TextField("test field", value: $model.userAnswer, format: .number)
+                    .onSubmit {
+                        model.questionSubmit()
+                    }
             }
         }.navigationTitle("Game Screen")
     }
