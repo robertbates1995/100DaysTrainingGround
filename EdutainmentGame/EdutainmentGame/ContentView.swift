@@ -87,22 +87,30 @@ struct ContentView: View {
                 .foregroundStyle(.white)
                 .padding()
             Spacer()
-            Text("Number of Questions")
-                .font(.system(size: 20))
-                .foregroundStyle(.white)
-            Picker("", selection: $model.numberOfQuestions) {
-                ForEach(model.numberOfQuestionsRange, id: \.self) {
-                    Text($0.formatted())
-                }
-            }.pickerStyle(.segmented)
-            
-            Text("Upper Limit")
-            Stepper("\(model.upperLimit)", value: $model.upperLimit, in: model.upperLimitRange)
-            Button("Start Game") {
-                model.startGame()
+            Spacer()
+            Spacer()
+            VStack {
+                Text("Number of Questions")
+                    .padding()
+                Picker("", selection: $model.numberOfQuestions) {
+                    ForEach(model.numberOfQuestionsRange, id: \.self) {
+                        Text($0.formatted())
+                    }
+                }.pickerStyle(.segmented)
             }
             Spacer()
+            VStack {
+                Text("Upper Limit")
+                    .padding()
+                Stepper("\(model.upperLimit)", value: $model.upperLimit, in: model.upperLimitRange)
+            }
+            Spacer()
+            Button("Start Game") {
+                model.startGame()
+            }.padding()
         }
+        .font(.system(size: 25))
+        .foregroundStyle(.white)
     }
     
     func questionView() -> some View {
