@@ -123,7 +123,7 @@ struct ContentView: View {
                     Spacer(minLength: 200)
                     VStack {
                         ForEach(ContentModel.Move.allCases) { move in
-                            Button{
+                            Button {
                                 model.choseMove(move)
                             } label: {
                                 Image(move.image)

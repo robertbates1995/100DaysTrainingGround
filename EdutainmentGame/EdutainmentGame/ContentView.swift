@@ -7,8 +7,6 @@
 
 import SwiftUI
 
-
-
 @Observable
 class ContentModel {
     var numberOfQuestionsRange = [5, 10, 20]
@@ -85,17 +83,25 @@ struct ContentView: View {
     func setupView() -> some View {
         return VStack {
             Text("Starting Screen")
+                .font(.system(size: 50).bold())
+                .foregroundStyle(.white)
+                .padding()
+            Spacer()
             Text("Number of Questions")
+                .font(.system(size: 20))
+                .foregroundStyle(.white)
             Picker("", selection: $model.numberOfQuestions) {
                 ForEach(model.numberOfQuestionsRange, id: \.self) {
                     Text($0.formatted())
                 }
             }.pickerStyle(.segmented)
+            
             Text("Upper Limit")
             Stepper("\(model.upperLimit)", value: $model.upperLimit, in: model.upperLimitRange)
             Button("Start Game") {
                 model.startGame()
             }
+            Spacer()
         }
     }
     
