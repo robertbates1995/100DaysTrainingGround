@@ -40,6 +40,7 @@ class ContentModel {
         if userAnswer == questions[numberOfQuestions - 1].2 {
             score += 1
         }
+        userAnswer = 0
         numberOfQuestions -= 1
         if numberOfQuestions < 1 {
             self.gameState = .over
