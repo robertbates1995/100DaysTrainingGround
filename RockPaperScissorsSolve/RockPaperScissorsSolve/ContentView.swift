@@ -101,7 +101,11 @@ struct ContentView: View {
                     .init(color: .blue, location: 0.35),
                     .init(color: .blue, location: 0.4),
                     .init(color: .indigo, location: 0.4),
-                ], center: .top, startRadius: 200, endRadius: 700)
+                ], 
+                center: .top,
+                startRadius: 200,
+                endRadius: 700
+            )
             .ignoresSafeArea()
             if(model.isDone == false) {
                 VStack {

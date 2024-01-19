@@ -63,7 +63,7 @@ struct ContentView: View {
                         .font(.subheadline.weight(.semibold))
                     ForEach(0..<3) { number in
                         Button {
-                            //model.flagTapped(number)
+                            model.flagTapped(number)
                             withAnimation {
                                 model.rotationAmounts[number] += 360
                                 model.opacityAmounts[number] += 0.75

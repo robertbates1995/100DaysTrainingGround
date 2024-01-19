@@ -53,38 +53,53 @@ struct ContentView: View {
     
     var body: some View {
         NavigationStack {
-            switch model.gameState {
-            case .setup:
-                setupView()
-            case .playing:
-                gameView()
-            case .over:
-                Text("over test string")
+            ZStack {
+                RadialGradient(
+                    stops: [
+                        .init(color: .black, location: 0.25),
+                        .init(color: .yellow, location: 0.25),
+                        .init(color: .yellow, location: 0.3),
+                        .init(color: .red, location: 0.3),
+                        .init(color: .red, location: 0.35),
+                        .init(color: .blue, location: 0.35),
+                        .init(color: .blue, location: 0.4),
+                        .init(color: .indigo, location: 0.4),
+                    ],
+                    center: .top,
+                    startRadius: 200,
+                    endRadius: 700
+                )
+                .ignoresSafeArea()
+                switch model.gameState {
+                case .setup:
+                    setupView()
+                case .playing:
+                    questionView()
+                case .over:
+                    endView()
+                }
             }
         }
     }
     
     func setupView() -> some View {
-        return List {
-            Section("Number of Questions") {
-                Picker("", selection: $model.numberOfQuestions) {
-                    ForEach(model.numberOfQuestionsRange, id: \.self) {
-                        Text($0.formatted())
-                    }
-                }.pickerStyle(.segmented)
-            }
-            Section("Upper Limit") {
-                Stepper("\(model.upperLimit)", value: $model.upperLimit, in: model.upperLimitRange)
-            }
-            Section("Start Game") {
-                Button("Start") {
-                    model.startGame()
+        return VStack {
+            Text("Starting Screen")
+            Text("Number of Questions")
+            Picker("", selection: $model.numberOfQuestions) {
+                ForEach(model.numberOfQuestionsRange, id: \.self) {
+                    Text($0.formatted())
                 }
+            }.pickerStyle(.segmented)
+            Text("Upper Limit")
+            Stepper("\(model.upperLimit)", value: $model.upperLimit, in: model.upperLimitRange)
+            Button("Start Game") {
+                model.startGame()
             }
-        }.navigationTitle("Starting Screen")
+        }
     }
     
-    func gameView() -> some View {
+    func questionView() -> some View {
         return List {
             Section("what is \(model.questions[model.numberOfQuestions - 1].0) x \(model.questions[model.numberOfQuestions - 1].1)") {
                 TextField("test field", value: $model.userAnswer, format: .number)
@@ -92,7 +107,16 @@ struct ContentView: View {
                         model.questionSubmit()
                     }
             }
+            Section("Score") {
+                Text("\(model.score)")
+            }
         }.navigationTitle("Game Screen")
+    }
+    
+    func endView() -> some View {
+        return List {
+            
+        }
     }
 }
 
