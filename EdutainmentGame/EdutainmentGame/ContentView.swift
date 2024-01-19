@@ -114,21 +114,22 @@ struct ContentView: View {
     }
     
     func questionView() -> some View {
-        return List {
-            Section("what is \(model.questions[model.numberOfQuestions - 1].0) x \(model.questions[model.numberOfQuestions - 1].1)") {
-                TextField("test field", value: $model.userAnswer, format: .number)
-                    .onSubmit {
-                        model.questionSubmit()
-                    }
-            }
-            Section("Score") {
-                Text("\(model.score)")
-            }
+        return VStack {
+            Text("\(model.questions[model.numberOfQuestions - 1].0) x \(model.questions[model.numberOfQuestions - 1].1)")
+                .font(.system(size: 80).bold())
+                .foregroundStyle(.white)
+                .padding()
+            Spacer()
+            TextField("", value: $model.userAnswer, format: .number)
+                .onSubmit {
+                    model.questionSubmit()
+                }
+            Text("Score: \(model.score)")
         }.navigationTitle("Game Screen")
     }
     
     func endView() -> some View {
-        return List {
+        return VStack {
             
         }
     }
