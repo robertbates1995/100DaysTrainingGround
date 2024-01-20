@@ -10,14 +10,13 @@ import SwiftUI
 @Observable
 class ContentModel {
     var numberOfQuestionsRange = [5, 10, 20]
-    var numberOfQuestions = 5
     var currentQuestion: questionData { questions[0] }
+    var numberOfQuestions = 5
     var upperLimit = 10
     var upperLimitRange = (2...12)
-    var gameState = gameState.playing
-    var userAnswer = 0
+    var gameState = gameState.setup
     var score = 0
-    var questions: [questionData] = [questionData(limit: 10), questionData(limit: 10), questionData(limit: 10), questionData(limit: 10), questionData(limit: 10)]
+    var questions: [questionData] = []
     
     enum gameState {
         case setup, playing, over
@@ -32,11 +31,10 @@ class ContentModel {
         self.gameState = .playing
     }
     
-    func questionSubmit() {
-        if userAnswer == questions[numberOfQuestions - 1].correctAnswer {
+    func questionSubmit(_ userAnswer: Int) {
+        if userAnswer == questions[0].correctAnswer {
             score += 1
         }
-        userAnswer = 0
         questions.remove(at: 0)
         if questions.isEmpty {
             self.gameState = .over
@@ -151,44 +149,66 @@ struct ContentView: View {
     func questionView() -> some View {
         return VStack {
             Text("Score: \(model.score)")
-            Text("\(model.questions[model.numberOfQuestions - 1].leftNumber) x \(model.questions[model.numberOfQuestions - 1].rightNumber)")
+            Text("\(model.questions[0].leftNumber) x \(model.questions[0].rightNumber)")
                 .font(.system(size: 80).bold())
                 .foregroundStyle(.white)
                 .padding()
             Spacer()
-            VStack {
+            VStack(alignment: .center) {
                 buttonRow(
                     left: model.currentQuestion.topLeft,
                     right: model.currentQuestion.topRight
-                )
+                ).padding()
                 buttonRow(
                     left: model.currentQuestion.bottomLeft,
                     right: model.currentQuestion.bottomRight
-                )
+                ).padding()
             }
-            TextField("", value: $model.userAnswer, format: .number)
-                .onSubmit {
-                    model.questionSubmit()
-                }
         }
         .font(.system(size: 25))
         .foregroundStyle(.white)
     }
     
     func buttonRow(left: Int, right: Int) -> some View {
-        return HStack {
-            
+        return HStack(alignment: .center) {
+            buttonView(left)
+            Spacer()
+            buttonView(right)
         }
     }
     
-    func buttonView() -> some View {
-        return ZStack {
-            
+    func buttonView(_ value: Int) -> some View {
+        ZStack {
+            ZStack{
+                ZStack {
+                    ZStack {
+                        Button("\(value)") {
+                            model.questionSubmit(value)
+                        }
+                        .frame(maxWidth: 70, maxHeight: 70)
+                        .font(.system(size: 40).bold())
+                        .background(.black)
+                        .clipShape(.rect(cornerRadius: 10))
+                    }
+                    .background(.black)
+                    .clipShape(.rect(cornerRadius: 10))
+                    .padding()
+                }
+                .background(.yellow)
+                .clipShape(.rect(cornerRadius: 10))
+                .padding()
+            }
+            .background(.red)
+            .clipShape(.rect(cornerRadius: 10))
+            .padding()
         }
+        .background(.blue)
+        .clipShape(.rect(cornerRadius: 10))
+        .shadow(radius: 30)
     }
     
     func endView() -> some View {
-        return VStack {
+        VStack {
             Spacer()
             Text("GAME OVER")
                 .font(.system(size: 55).bold())
