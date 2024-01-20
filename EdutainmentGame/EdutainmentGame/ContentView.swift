@@ -11,12 +11,13 @@ import SwiftUI
 class ContentModel {
     var numberOfQuestionsRange = [5, 10, 20]
     var numberOfQuestions = 5
+    var currentQuestion: questionData { questions[0] }
     var upperLimit = 10
     var upperLimitRange = (2...12)
-    var gameState = gameState.setup
+    var gameState = gameState.playing
     var userAnswer = 0
     var score = 0
-    var questions: [(Int, Int, Int)] = []
+    var questions: [questionData] = [questionData(limit: 10), questionData(limit: 10), questionData(limit: 10), questionData(limit: 10), questionData(limit: 10)]
     
     enum gameState {
         case setup, playing, over
@@ -25,23 +26,55 @@ class ContentModel {
     func startGame() {
         var temp = self.numberOfQuestions
         while temp > 0 {
-            let temp1 = Int.random(in: 1...upperLimit)
-            let temp2 = Int.random(in: 1...upperLimit)
-            let answer = temp1 * temp2
-            questions += [(temp1, temp2, answer)]
+            questions += [questionData(limit: upperLimit)]
             temp -= 1
         }
         self.gameState = .playing
     }
     
     func questionSubmit() {
-        if userAnswer == questions[numberOfQuestions - 1].2 {
+        if userAnswer == questions[numberOfQuestions - 1].correctAnswer {
             score += 1
         }
         userAnswer = 0
-        numberOfQuestions -= 1
-        if numberOfQuestions < 1 {
+        questions.remove(at: 0)
+        if questions.isEmpty {
             self.gameState = .over
+        }
+    }
+}
+
+extension ContentModel {
+    class questionData {
+        var limit: Int
+        
+        var leftNumber: Int
+        var rightNumber: Int
+        var correctAnswer: Int
+        
+        var topLeft: Int
+        var topRight: Int
+        var bottomLeft: Int
+        var bottomRight: Int
+        
+        init(limit: Int) {
+            self.limit = limit
+            leftNumber = Int.random(in: 1...limit)
+            rightNumber = Int.random(in: 1...limit)
+            correctAnswer = leftNumber * rightNumber
+            
+            let upper = limit * limit
+            let rawNumbers = [
+                correctAnswer,
+                Int.random(in: 0...upper),
+                Int.random(in: 0...upper),
+                Int.random(in: 0...upper)
+            ].shuffled()
+            
+            topLeft = rawNumbers[0]
+            topRight = rawNumbers[1]
+            bottomLeft = rawNumbers[2]
+            bottomRight = rawNumbers[3]
         }
     }
 }
@@ -82,10 +115,12 @@ struct ContentView: View {
     
     func setupView() -> some View {
         return VStack {
-            Text("Starting Screen")
+            Spacer()
+            Text("Multiplication Quiz")
                 .font(.system(size: 50).bold())
                 .foregroundStyle(.white)
                 .padding()
+            Spacer()
             Spacer()
             Spacer()
             Spacer()
@@ -109,29 +144,91 @@ struct ContentView: View {
                 model.startGame()
             }.padding()
         }
-        .font(.system(size: 25))
+        .font(.largeTitle.bold())
         .foregroundStyle(.white)
     }
     
     func questionView() -> some View {
         return VStack {
-            Text("\(model.questions[model.numberOfQuestions - 1].0) x \(model.questions[model.numberOfQuestions - 1].1)")
+            Text("Score: \(model.score)")
+            Text("\(model.questions[model.numberOfQuestions - 1].leftNumber) x \(model.questions[model.numberOfQuestions - 1].rightNumber)")
                 .font(.system(size: 80).bold())
                 .foregroundStyle(.white)
                 .padding()
             Spacer()
+            VStack {
+                buttonRow(
+                    left: model.currentQuestion.topLeft,
+                    right: model.currentQuestion.topRight
+                )
+                buttonRow(
+                    left: model.currentQuestion.bottomLeft,
+                    right: model.currentQuestion.bottomRight
+                )
+            }
             TextField("", value: $model.userAnswer, format: .number)
                 .onSubmit {
                     model.questionSubmit()
                 }
-            Text("Score: \(model.score)")
-        }.navigationTitle("Game Screen")
+        }
+        .font(.system(size: 25))
+        .foregroundStyle(.white)
+    }
+    
+    func buttonRow(left: Int, right: Int) -> some View {
+        return HStack {
+            
+        }
+    }
+    
+    func buttonView() -> some View {
+        return ZStack {
+            
+        }
     }
     
     func endView() -> some View {
         return VStack {
-            
+            Spacer()
+            Text("GAME OVER")
+                .font(.system(size: 55).bold())
+                .padding()
+            Spacer()
+            Spacer()
+            Spacer()
+            Spacer()
+            Text("Your Score:")
+            ZStack {
+                ZStack{
+                    ZStack {
+                        ZStack {
+                            Text("\(model.score)")
+                                .font(.system(size: 60))
+                                .padding()
+                                .padding()
+                        }
+                        .background(.black)
+                        .clipShape(.rect(cornerRadius: 10))
+                        .padding()
+                    }
+                    .background(.yellow)
+                    .clipShape(.rect(cornerRadius: 10))
+                    .padding()
+                }
+                .background(.red)
+                .clipShape(.rect(cornerRadius: 10))
+                .padding()
+            }
+            .background(.blue)
+            .clipShape(.rect(cornerRadius: 10))
+            .shadow(radius: 50)
+            Spacer()
+            Button("New Game") {
+                model = ContentModel()
+            }
         }
+        .foregroundStyle(.white)
+        .font(.largeTitle.bold())
     }
 }
 
