@@ -14,9 +14,13 @@ class ContentModel {
     var numberOfQuestions = 5
     var upperLimit = 10
     var upperLimitRange = (2...12)
-    var gameState = gameState.setup
+    var gameState = gameState.playing
     var score = 0
-    var questions: [questionData] = []
+    var questions: [questionData] = [
+        questionData(limit: 10), questionData(limit: 10),
+        questionData(limit: 10), questionData(limit: 10),
+        questionData(limit: 10)
+    ]
     
     enum gameState {
         case setup, playing, over
@@ -44,6 +48,7 @@ class ContentModel {
 
 extension ContentModel {
     class questionData {
+        //Data Storage
         var limit: Int
         
         var leftNumber: Int
@@ -129,13 +134,16 @@ struct ContentView: View {
                     ForEach(model.numberOfQuestionsRange, id: \.self) {
                         Text($0.formatted())
                     }
-                }.pickerStyle(.segmented)
+                }
+                .pickerStyle(.segmented)
+                .opacity(1.0)
             }
             Spacer()
             VStack {
                 Text("Upper Limit")
                     .padding()
                 Stepper("\(model.upperLimit)", value: $model.upperLimit, in: model.upperLimitRange)
+                    .padding()
             }
             Spacer()
             Button("Start Game") {
@@ -178,17 +186,24 @@ struct ContentView: View {
     }
     
     func buttonView(_ value: Int) -> some View {
-        ZStack {
+        var rotationValue = 0.0
+        var oppacityValue = 1.0
+        
+        return ZStack {
             ZStack{
                 ZStack {
                     ZStack {
                         Button("\(value)") {
                             model.questionSubmit(value)
+                            withAnimation {
+                                rotationValue += 360
+                            }
                         }
                         .frame(maxWidth: 70, maxHeight: 70)
-                        .font(.system(size: 40).bold())
+                        .font(.system(size: 36).bold())
                         .background(.black)
                         .clipShape(.rect(cornerRadius: 10))
+                        .rotation3DEffect(.degrees(rotationValue), axis: (x: 0, y: 1, z: 0))
                     }
                     .background(.black)
                     .clipShape(.rect(cornerRadius: 10))
