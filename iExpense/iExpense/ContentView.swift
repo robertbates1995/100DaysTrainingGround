@@ -7,19 +7,9 @@
 
 import SwiftUI
 
-@Observable
-class user {
-    
-}
-
-struct SecondView: View {
-    @Environment(\.dismiss) var dismiss
-    let name: String
-    
+struct Secondview: View {
     var body: some View {
-        Button("Dismiss") {
-            dismiss()
-        }
+        Text("second View")
     }
 }
 
@@ -28,10 +18,7 @@ struct ContentView: View {
     
     var body: some View {
         Button("Show Sheet") {
-            showingSheet.toggle()
-        }
-        .sheet(isPresented: $showingSheet) {
-            SecondView(name: "Bobby")
+            
         }
     }
 }
