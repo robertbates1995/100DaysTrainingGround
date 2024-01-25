@@ -8,8 +8,12 @@
 import SwiftUI
 
 struct Secondview: View {
+    @Environment(\.dismiss) var dismiss
+    
     var body: some View {
-        Text("second View")
+        Button("Dismiss") {
+            dismiss()
+        }
     }
 }
 
@@ -18,7 +22,10 @@ struct ContentView: View {
     
     var body: some View {
         Button("Show Sheet") {
-            
+            showingSheet.toggle()
+        }
+        .sheet(isPresented: $showingSheet) {
+            Secondview()
         }
     }
 }
