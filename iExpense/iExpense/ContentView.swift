@@ -7,26 +7,34 @@
 
 import SwiftUI
 
-struct Secondview: View {
-    @Environment(\.dismiss) var dismiss
-    
-    var body: some View {
-        Button("Dismiss") {
-            dismiss()
-        }
-    }
+struct ContentModel {
+    var numbers = [Int]()
+    var currentNumber = 1
 }
 
 struct ContentView: View {
-    @State private var showingSheet = false
+   @State var model = ContentModel()
     
     var body: some View {
-        Button("Show Sheet") {
-            showingSheet.toggle()
+        NavigationStack {
+            VStack {
+                List {
+                    ForEach(model.numbers, id: \.self) {
+                        Text("Row \($0)")
+                    }
+                    .onDelete(perform: removeRows)
+                }
+                
+                Button("Add Number") {
+                    model.numbers.append(model.currentNumber)
+                    model.currentNumber += 1
+                }
+            }
         }
-        .sheet(isPresented: $showingSheet) {
-            Secondview()
-        }
+    }
+    
+    func removeRows(at offsets: IndexSet) {
+        model.numbers.remove(atOffsets: offsets)
     }
 }
 
