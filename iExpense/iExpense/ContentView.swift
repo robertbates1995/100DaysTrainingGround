@@ -7,18 +7,25 @@
 
 import SwiftUI
 
+struct User: Codable {
+    let firstName: String
+    let lastName: String
+}
+
 struct ContentModel {
-    @AppStorage("tapCount") var tapCount = 0
+    var user = User(firstName: "firstName", lastName: "lastName")
 }
 
 struct ContentView: View {
    @State var model = ContentModel()
     
     var body: some View {
-        Button("Tap Count: \(model.tapCount)") {
-            model.tapCount += 1
+        Button("Save User") {
+            let encoder = JSONEncoder()
             
-            UserDefaults.standard.set(model.tapCount, forKey: "Tap")
+            if let data = try? encoder.encode(model.user) {
+                UserDefaults.standard.setValue(data, forKey: "UserData")
+            }
         }
     }
 }
