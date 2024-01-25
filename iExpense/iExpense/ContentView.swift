@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ContentModel {
-    var tapCount = UserDefaults.standard.integer(forKey: "Tap")
+    @AppStorage("tapCount") var tapCount = 0
 }
 
 struct ContentView: View {
