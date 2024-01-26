@@ -7,24 +7,30 @@
 
 import SwiftUI
 
-struct User: Codable {
-    let firstName: String
-    let lastName: String
+struct ExpenseItem {
+    let name: String
+    let type: String
+    let amount: Double
 }
 
-struct ContentModel {
-    var user = User(firstName: "firstName", lastName: "lastName")
+@Observable
+class Expenses {
+    var items = [ExpenseItem]()
+}
+
+class ContentModel {
+    var expenses = Expenses()
 }
 
 struct ContentView: View {
-   @State var model = ContentModel()
+    @State var model = ContentModel()
     
     var body: some View {
-        Button("Save User") {
-            let encoder = JSONEncoder()
-            
-            if let data = try? encoder.encode(model.user) {
-                UserDefaults.standard.setValue(data, forKey: "UserData")
+        NavigationStack {
+            List {
+                ForEach(model.expenses.items, id: \.name) { item in
+                    Text(item.name)
+                }
             }
         }
     }
