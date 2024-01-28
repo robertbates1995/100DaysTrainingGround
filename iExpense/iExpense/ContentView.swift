@@ -38,8 +38,7 @@ struct ContentView: View {
             .navigationTitle("iExpense")
             .toolbar {
                 Button("Add Expense", systemImage: "plus") {
-                    let expense = ExpenseItem(name: "Test", type: "Personal", amount: 5)
-                    model.expenses.items.append(expense)
+                    model.showingAddExpense = true
                 }
             }
             .sheet(isPresented: $model.showingAddExpense) {
