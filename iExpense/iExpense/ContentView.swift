@@ -21,6 +21,7 @@ class Expenses {
 
 class ContentModel {
     var expenses = Expenses()
+    var showingAddExpense = false
 }
 
 struct ContentView: View {
@@ -40,6 +41,9 @@ struct ContentView: View {
                     let expense = ExpenseItem(name: "Test", type: "Personal", amount: 5)
                     model.expenses.items.append(expense)
                 }
+            }
+            .sheet(isPresented: $model.showingAddExpense) {
+                AddView(expenses: model.expenses)
             }
         }
     }
