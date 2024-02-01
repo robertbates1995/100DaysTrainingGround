@@ -48,14 +48,22 @@ struct ContentView: View {
         NavigationStack {
             List {
                 ForEach(model.expenses.items) { item in
-                    HStack {
-                        VStack(alignment: .leading) {
-                            Text(item.name)
-                                .font(.headline)
-                            Text(item.type)
+                    var background: UIColor {
+                        if item.amount < 10 { return .green }
+                        if item.amount < 100 { return .yellow }
+                        return .red
+                    }
+                    ZStack{
+                        Color(background)
+                        HStack {
+                            VStack(alignment: .leading) {
+                                Text(item.name)
+                                    .font(.headline)
+                                Text(item.type)
+                            }
+                            Spacer()
+                            Text(item.amount, format: .currency(code: "USD"))
                         }
-                        Spacer()
-                        Text(item.amount, format: .currency(code: "USD"))
                     }
                 }
                 .onDelete(perform: removeItems)
