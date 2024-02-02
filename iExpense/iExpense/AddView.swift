@@ -19,7 +19,7 @@ struct AddView: View {
     @State private var name = ""
     @State private var type = "Personal"
     @State private var amount = 0.0
-    @State private var currency = currencyType.EUR
+    @State private var currency = currencyType.USD
     
     var expenses: Expenses
     
@@ -48,7 +48,11 @@ struct AddView: View {
             .toolbar {
                 Button("Save") {
                     let item = ExpenseItem(name: name, type: type, amount: amount)
-                    expenses.items.append(item)
+                    if item.type == "Business" {
+                        expenses.businessItems.append(item)
+                    } else if item.type == "Personal" {
+                        expenses.personalItems.append(item)
+                    }
                     dismiss()
                 }
             }
