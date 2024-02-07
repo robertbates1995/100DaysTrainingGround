@@ -9,12 +9,14 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        Image(.fatSeal)
-            .resizable()
-            .scaledToFill()
-            .containerRelativeFrame(.horizontal) { size, axis in
-                size * 0.8
-            }
+        ScrollView(.horizontal) {
+            LazyHStack(spacing: 10) {
+                ForEach(0..<100) {
+                    Text("Item \($0)")
+                        .font(.title)
+                }
+            }.frame(maxWidth: .infinity)
+        }
     }
 }
 
