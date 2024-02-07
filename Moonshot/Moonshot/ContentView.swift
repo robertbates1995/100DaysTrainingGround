@@ -11,7 +11,10 @@ struct ContentView: View {
     var body: some View {
         Image(.fatSeal)
             .resizable()
-            .frame(width: 300, height: 300)
+            .scaledToFill()
+            .containerRelativeFrame(.horizontal) { size, axis in
+                size * 0.8
+            }
     }
 }
 
