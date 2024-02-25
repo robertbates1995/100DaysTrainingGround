@@ -37,6 +37,14 @@ struct ContentView: View {
                             y: motion.y * 50
                         )
                     )
+                    .shadow(
+                        .drop(
+                            color: .black.opacity(0.2),
+                            radius: 10,
+                            x: motion.x * 50,
+                            y: motion.y * 50
+                        )
+                    )
                 )
                 .font(.system(size: 200).bold())
         }
