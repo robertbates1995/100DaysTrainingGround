@@ -14,6 +14,8 @@ class MotionManager: ObservableObject {
     @Published var y = 0.0
     
     init() {
+        motionManager.deviceMotionUpdateInterval = 1 / 60
+        
         motionManager.startDeviceMotionUpdates(to: .main) { [weak self] data, error in
             guard let motion = data?.attitude else { return }
             self?.x = motion.roll
@@ -34,11 +36,11 @@ struct ContentView: View {
                             color: .black,
                             radius: 5,
                             x: motion.x * -20,
-                            y: motion.y * -20
+                            y: (motion.y * -20) + 15
                         )
                     )
                 )
-                .font(.system(size: 200).bold())
+                .font(.system(size: 250).bold())
                 .rotation3DEffect(.degrees(motion.x * 20), axis: (x: 0, y: 1, z: 0))
                 .rotation3DEffect(.degrees(motion.y * 20), axis: (x: -1, y: 0, z: 0))
         }
