@@ -32,21 +32,15 @@ struct ContentView: View {
                     .blue.gradient.shadow(
                         .inner(
                             color: .black,
-                            radius: 10,
-                            x: motion.x * 50,
-                            y: motion.y * 50
-                        )
-                    )
-                    .shadow(
-                        .drop(
-                            color: .black.opacity(0.2),
-                            radius: 10,
-                            x: motion.x * 50,
-                            y: motion.y * 50
+                            radius: 5,
+                            x: motion.x * -20,
+                            y: motion.y * -20
                         )
                     )
                 )
                 .font(.system(size: 200).bold())
+                .rotation3DEffect(.degrees(motion.x * 20), axis: (x: 0, y: 1, z: 0))
+                .rotation3DEffect(.degrees(motion.y * 20), axis: (x: -1, y: 0, z: 0))
         }
         .padding()
     }
