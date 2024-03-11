@@ -38,5 +38,8 @@ struct MissionView: View {
 }
 
 #Preview {
-    MissionView()
+    let missions: [Mission] = Bundle.main.decode("missions.json")
+
+        return MissionView(mission: missions[0])
+            .preferredColorScheme(.dark)
 }
