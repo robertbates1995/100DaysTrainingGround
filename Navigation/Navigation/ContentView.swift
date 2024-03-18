@@ -14,12 +14,13 @@ struct ContentView: View {
         NavigationStack {
             Text("Hello, world!")
                 .toolbar {
-                    ToolbarItem(placement: .topBarLeading) {
+                    ToolbarItem(placement: .confirmationAction) {
                         Button("Tap Me") {
                             // button action here
                         }
                     }
                 }
+                .navigationBarBackButtonHidden()
         }
     }
 }
