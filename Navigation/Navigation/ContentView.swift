@@ -14,8 +14,12 @@ struct ContentView: View {
         NavigationStack {
             Text("Hello, world!")
                 .toolbar {
-                    ToolbarItem(placement: .confirmationAction) {
+                    ToolbarItemGroup(placement: .topBarLeading) {
                         Button("Tap Me") {
+                            // button action here
+                        }
+
+                        Button("Tap Me 2") {
                             // button action here
                         }
                     }
