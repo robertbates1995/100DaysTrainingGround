@@ -51,6 +51,8 @@ class Expenses {
 class ContentModel {
     var expenses = Expenses()
     var showingAddExpense = false
+    var title = "iExpense"
+
 }
 
 struct ContentView: View {
@@ -108,14 +110,15 @@ struct ContentView: View {
                 }
                 .onDelete(perform: removePersonalItems)
             }
-            .navigationTitle("iExpense")
+            .navigationTitle($model.title)
+            .navigationBarTitleDisplayMode(.inline)
             .toolbar {
-                Button("Add Expense", systemImage: "plus") {
-                    model.showingAddExpense = true
+                NavigationLink {
+                    AddView(expenses: model.expenses)
+                } label: {
+                    Label("Add Expense", systemImage: "plus")
                 }
-            }
-            .sheet(isPresented: $model.showingAddExpense) {
-                AddView(expenses: model.expenses)
+                .navigationBarBackButtonHidden()
             }
         }
     }
