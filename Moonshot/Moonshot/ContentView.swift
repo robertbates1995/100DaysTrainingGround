@@ -18,33 +18,10 @@ struct ContentView: View {
             ScrollView {
                 LazyVGrid(columns: columns) {
                     ForEach(missions) { mission in
-                        NavigationLink {
-                            Text("Detail view")
-                        } label: {
-                            VStack {
-                                Image(mission.image)
-                                    .resizable()
-                                    .scaledToFit()
-                                    .frame(width: 100, height: 100)
-                                    .padding()
-                                VStack {
-                                    Text(mission.displayName)
-                                        .font(.headline)
-                                        .foregroundStyle(.white)
-                                    Text(mission.formattedLaunchDate)
-                                        .font(.caption)
-                                        .foregroundStyle(.gray)
-                                }
-                                .padding(.vertical)
-                                .frame(maxWidth: .infinity)
-                                .background(.lightBackground)
-                            }
-                            .clipShape(.rect(cornerRadius: 10))
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 10)
-                                    .stroke(.lightBackground)
-                            )
-                        }
+                        NavigationLink(value: mission)
+                    }
+                    .navigationDestination(for: Mission.self) {
+                        MissionView(mission: $0)
                     }
                 }
                 .padding([.horizontal, .bottom])
@@ -52,6 +29,36 @@ struct ContentView: View {
             .navigationTitle("Moonshot")
             .background(.darkBackground)
             .preferredColorScheme(.dark)
+        }
+    }
+    
+    struct LabelView: View {
+        let mission: Mission
+        
+        var body: some View {
+            VStack {
+                Image(mission.image)
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 100, height: 100)
+                    .padding()
+                VStack {
+                    Text(mission.displayName)
+                        .font(.headline)
+                        .foregroundStyle(.white)
+                    Text(mission.formattedLaunchDate)
+                        .font(.caption)
+                        .foregroundStyle(.gray)
+                }
+                .padding(.vertical)
+                .frame(maxWidth: .infinity)
+                .background(.lightBackground)
+            }
+            .clipShape(.rect(cornerRadius: 10))
+            .overlay(
+                RoundedRectangle(cornerRadius: 10)
+                    .stroke(.lightBackground)
+            )
         }
     }
 }
