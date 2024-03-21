@@ -18,7 +18,9 @@ struct ContentView: View {
             ScrollView {
                 LazyVGrid(columns: columns) {
                     ForEach(missions) { mission in
-                        NavigationLink(value: mission)
+                        NavigationLink(value: mission) {
+                            LabelView(mission: mission)
+                        }
                     }
                     .navigationDestination(for: Mission.self) {
                         MissionView(mission: $0)
