@@ -17,6 +17,8 @@ class Order {
     var streetAddress = ""
     var city = ""
     var zip = ""
+    var extraFrosting = false
+    var addSprinkles = false
     
     var specialRequestEnabled = false {
         didSet {
@@ -26,13 +28,16 @@ class Order {
             }
         }
     }
-    var extraFrosting = false
-    var addSprinkles = false
+    
+    var hasValidAddress: Bool {
+        if name.isEmpty || streetAddress.isEmpty || city.isEmpty || zip.isEmpty {
+            return false
+        }
+        
+        return true
+    }
 }
 
-class ContentModel {
-    var order = Order()
-}
 struct ContentView: View {
     @State private var order = Order()
     
@@ -47,6 +52,7 @@ struct ContentView: View {
                     }
                     Stepper("Number of cakes: \(order.quantity)", value: $order.quantity, in: 1...20)
                 }
+                
                 Section {
                     Toggle("Any special requests?", isOn: $order.specialRequestEnabled)
 
@@ -56,6 +62,7 @@ struct ContentView: View {
                         Toggle("Add extra sprinkles", isOn: $order.addSprinkles)
                     }
                 }
+                
                 Section {
                     NavigationLink("Delivery details") {
                         AddressView(order: order)
