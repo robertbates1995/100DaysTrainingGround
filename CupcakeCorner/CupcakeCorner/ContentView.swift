@@ -13,6 +13,10 @@ class Order {
     
     var type = 0
     var quantity = 6
+    var name = ""
+    var streetAddress = ""
+    var city = ""
+    var zip = ""
     
     var specialRequestEnabled = false {
         didSet {

@@ -12,6 +12,7 @@
 		7A1BE94A2BACED8000A66CEB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7A1BE9492BACED8000A66CEB /* Assets.xcassets */; };
 		7A1BE94D2BACED8000A66CEB /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7A1BE94C2BACED8000A66CEB /* Preview Assets.xcassets */; };
 		7A1BE9542BAE282300A66CEB /* AddressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A1BE9532BAE282300A66CEB /* AddressView.swift */; };
+		7A1BE9562BAE2D7400A66CEB /* CheckoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A1BE9552BAE2D7400A66CEB /* CheckoutView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -21,6 +22,7 @@
 		7A1BE9492BACED8000A66CEB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7A1BE94C2BACED8000A66CEB /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		7A1BE9532BAE282300A66CEB /* AddressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressView.swift; sourceTree = "<group>"; };
+		7A1BE9552BAE2D7400A66CEB /* CheckoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckoutView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +58,7 @@
 				7A1BE9452BACED7C00A66CEB /* CupcakeCornerApp.swift */,
 				7A1BE9472BACED7C00A66CEB /* ContentView.swift */,
 				7A1BE9532BAE282300A66CEB /* AddressView.swift */,
+				7A1BE9552BAE2D7400A66CEB /* CheckoutView.swift */,
 				7A1BE9492BACED8000A66CEB /* Assets.xcassets */,
 				7A1BE94B2BACED8000A66CEB /* Preview Content */,
 			);
@@ -142,6 +145,7 @@
 			files = (
 				7A1BE9482BACED7C00A66CEB /* ContentView.swift in Sources */,
 				7A1BE9462BACED7C00A66CEB /* CupcakeCornerApp.swift in Sources */,
+				7A1BE9562BAE2D7400A66CEB /* CheckoutView.swift in Sources */,
 				7A1BE9542BAE282300A66CEB /* AddressView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
