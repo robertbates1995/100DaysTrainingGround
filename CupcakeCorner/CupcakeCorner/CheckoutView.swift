@@ -25,7 +25,6 @@ struct CheckoutView: View {
                 .frame(height: 233)
                 Text("Your total is: \(order.cost, format: .currency(code: "USD"))")
                     .font(.largeTitle)
-                
                 Button("Place Order") {
                     Task {
                         await placeOrder()

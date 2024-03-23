@@ -42,7 +42,7 @@ class Order: Codable {
     }
     
     var hasValidAddress: Bool {
-        if name.isEmpty || streetAddress.isEmpty || city.isEmpty || zip.isEmpty {
+        if isBlank(string: name) || isBlank(string: streetAddress) || isBlank(string: city) || isBlank(string: zip) {
             return false
         }
         return true
@@ -62,5 +62,9 @@ class Order: Codable {
         }
         
         return cost
+    }
+    
+    func isBlank(string: String) -> Bool {
+        return string.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
     }
 }
