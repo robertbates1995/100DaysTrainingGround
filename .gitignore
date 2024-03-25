@@ -5,3 +5,5 @@ WordScramble/WordScramble.xcodeproj/xcuserdata/robertbates.xcuserdatad/xcdebugge
 HackingWithSwift/
 *.pbxproj
 *.xcbkptlist
+*.xcworkspacedata
+*.plist
