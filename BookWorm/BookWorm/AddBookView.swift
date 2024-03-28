@@ -33,7 +33,24 @@ struct AddBookView: View {
                         }
                     }
                 }
+                
+                Section("Write a review") {
+                    TextEditor(text: $model.review)
+                    
+                    Picker("Rating", selection: $model.rating) {
+                        ForEach(0..<6) {
+                            Text(String($0))
+                        }
+                    }
+                }
+                
+                Section {
+                    Button("Save") {
+                        
+                    }
+                }
             }
+            .navigationTitle("Add Book")
         }
     }
 }
