@@ -18,11 +18,26 @@ struct AddBookViewModel {
 struct AddBookView: View {
     @Environment(\.modelContext) var modelContext
     @State var model = AddBookViewModel()
+    let genres = ["Fantasy", "Horror", "Kids", "Mystery", "Poetry", "Romance", "Thriller"]
     
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        NavigationStack {
+            Form {
+                Section {
+                    TextField("Name of Book", text: $model.title)
+                    TextField("Name of Author", text: $model.author)
+                    
+                    Picker("Genre", selection: $model.genre) {
+                        ForEach(genres, id: \.self) {
+                            Text($0)
+                        }
+                    }
+                }
+            }
+        }
     }
 }
+
 
 #Preview {
     AddBookView()
