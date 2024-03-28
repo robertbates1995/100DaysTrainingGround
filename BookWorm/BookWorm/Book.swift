@@ -14,9 +14,9 @@ class Book {
     var author: String
     var genre: String
     var review: String
-    var rating: String
+    var rating: Int
     
-    init(title: String, author: String, genre: String, review: String, rating: String) {
+    init(title: String, author: String, genre: String, review: String, rating: Int) {
         self.title = title
         self.author = author
         self.genre = genre

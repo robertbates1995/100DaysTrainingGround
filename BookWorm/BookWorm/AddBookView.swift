@@ -17,7 +17,10 @@ struct AddBookViewModel {
 
 struct AddBookView: View {
     @Environment(\.modelContext) var modelContext
+    @Environment(\.dismiss) var dismiss
+    
     @State var model = AddBookViewModel()
+    
     let genres = ["Fantasy", "Horror", "Kids", "Mystery", "Poetry", "Romance", "Thriller"]
     
     var body: some View {
@@ -46,7 +49,9 @@ struct AddBookView: View {
                 
                 Section {
                     Button("Save") {
-                        
+                        let newBook = Book(title: model.title, author: model.author, genre: model.genre, review: model.review, rating: model.rating)
+                        modelContext.insert(newBook)
+                        dismiss()
                     }
                 }
             }
