@@ -41,6 +41,10 @@ struct ContentView: View {
                     DetailView(book: book)
                 }
                 .toolbar {
+                    ToolbarItem(placement: .topBarLeading) {
+                        EditButton()
+                    }
+                    
                     ToolbarItem(placement: .topBarTrailing) {
                         Button("Add Book", systemImage: "plus") {
                             showingAddScreen.toggle()
@@ -50,6 +54,13 @@ struct ContentView: View {
                 .sheet(isPresented: $showingAddScreen, content: {
                     AddBookView()
                 })
+        }
+    }
+    
+    func deleteBooks(at offsets: IndexSet) {
+        for offset in offsets {
+            let book = books[offset]
+            modelContext.delete(book)
         }
     }
 }
