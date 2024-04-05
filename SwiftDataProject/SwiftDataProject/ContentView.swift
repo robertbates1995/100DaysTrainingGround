@@ -11,7 +11,7 @@ import SwiftData
 struct ContentView: View {
     @Environment(\.modelContext) var modelContext
     @Query( filter: #Predicate<User> { user in
-        user.name.contains("R")
+        user.name.localizedStandardContains("R") && user.city == "London"
     }, sort: \User.name) var users: [User]
     
     var body: some View {
