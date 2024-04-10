@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct ExpenseItem: Identifiable, Codable {
     var id = UUID()
@@ -48,11 +49,17 @@ class Expenses {
 }
 
 @Observable
+@Model
 class ContentModel {
     var expenses = Expenses()
     var showingAddExpense = false
     var title = "iExpense"
-
+    
+    init(expenses: Expenses = Expenses(), showingAddExpense: Bool = false, title: String = "iExpense") {
+        self.expenses = expenses
+        self.showingAddExpense = showingAddExpense
+        self.title = title
+    }
 }
 
 struct ContentView: View {

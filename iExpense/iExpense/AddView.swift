@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SwiftData
 
 enum currencyType: String, CaseIterable {
     case USD = "USD"
