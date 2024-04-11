@@ -46,17 +46,17 @@ struct AddView: View {
                 }
             }
             .navigationTitle("Add new expense")
-            .toolbar {
-                Button("Save") {
-                    let item = ExpenseItem(name: name, type: type, amount: amount)
-                    if item.type == "Business" {
-                        expenses.businessItems.append(item)
-                    } else if item.type == "Personal" {
-                        expenses.personalItems.append(item)
-                    }
-                    dismiss()
-                }
-            }
+//            .toolbar {
+//                Button("Save") {
+//                    let item = ExpenseItem(name: name, type: type, amount: amount)
+//                    if item.type == "Business" {
+//                        expenses.businessItems.append(item)
+//                    } else if item.type == "Personal" {
+//                        expenses.personalItems.append(item)
+//                    }
+//                    dismiss()
+//                }
+//            }
         }
     }
 }
