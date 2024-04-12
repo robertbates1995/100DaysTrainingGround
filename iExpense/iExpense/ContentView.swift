@@ -40,7 +40,7 @@ class ContentModel {
 
 struct ContentView: View {
     @Environment(\.modelContext) var modelContext
-    @Bindable var model: ContentModel
+    @State private var model = ContentModel()
     
     var body: some View {
         NavigationStack {
@@ -121,8 +121,7 @@ struct ContentView: View {
         let config = ModelConfiguration(isStoredInMemoryOnly: true)
         let container = try ModelContainer(for: ContentModel.self, configurations: config)
 
-        let model = ContentModel()
-        return ContentView(model: model)
+        return ContentView()
             .modelContainer(container)
     } catch {
         return Text("Failed to create container: \(error.localizedDescription)")
