@@ -8,118 +8,126 @@
 import SwiftUI
 import SwiftData
 
-struct ExpenseItem: Identifiable, Codable {
+@Model
+class ExpenseItem: Identifiable {
     var id = UUID()
-    let name: String
-    let type: String
-    let amount: Double
-}
-
-@Model
-class Expenses {
-    var personalItems = [ExpenseItem]()
-    var businessItems = [ExpenseItem]()
+    var name: String
+    var type: String
+    var amount: Double
     
-    init(personalItems: [ExpenseItem] = [ExpenseItem](), businessItems: [ExpenseItem] = [ExpenseItem]()) {
-        self.personalItems = personalItems
-        self.businessItems = businessItems
+    init(id: UUID = UUID(), name: String, type: String, amount: Double) {
+        self.id = id
+        self.name = name
+        self.type = type
+        self.amount = amount
     }
 }
 
-@Model
-class ContentModel {
-    @Relationship(deleteRule: .cascade) var expenses: Expenses? = Expenses()
-    var showingAddExpense = false
-    var title = "iExpense"
-    
-    init(showingAddExpense: Bool = false, title: String = "iExpense") {
-        self.showingAddExpense = showingAddExpense
-        self.title = title
-    }
-}
+//@Model
+//class Expenses {
+//    var personalItems = [ExpenseItem]()
+//    var businessItems = [ExpenseItem]()
+//    
+//    init(personalItems: [ExpenseItem] = [ExpenseItem](), businessItems: [ExpenseItem] = [ExpenseItem]()) {
+//        self.personalItems = personalItems
+//        self.businessItems = businessItems
+//    }
+//}
+//
+//@Model
+//class ContentModel {
+//   @Relationship(deleteRule: .cascade) var expenses: Expenses = Expenses()
+//    var items
+//    var showingAddExpense = false
+//    var title = "iExpense"
+//    
+//    init(showingAddExpense: Bool = false, title: String = "iExpense") {
+//        self.showingAddExpense = showingAddExpense
+//        self.title = title
+//    }
+//}
 
 struct ContentView: View {
     @Environment(\.modelContext) var modelContext
-    @State private var model = ContentModel()
+    @Query private var model: [ExpenseItem]
     
     var body: some View {
         NavigationStack {
-//            List {
-//                if model.expenses.personalItems.count > 0 {
-//                    Text("Personal")
-//                        .font(.largeTitle)
-//                }
-//                ForEach(model.expenses.personalItems) { item in
-//                    var background: UIColor {
-//                        if item.amount < 10 { return .green }
-//                        if item.amount < 100 { return .yellow }
-//                        return .red
-//                    }
-//                    ZStack{
-//                        Color(background)
-//                        HStack {
-//                            VStack(alignment: .leading) {
-//                                Text(item.name)
-//                                    .font(.headline)
-//                                Text(item.type)
-//                            }
-//                            Spacer()
-//                            Text(item.amount, format: .currency(code: "USD"))
-//                        }
-//                    }
-//                }
-//                .onDelete(perform: removePersonalItems)
-//                if model.expenses.businessItems.count > 0 {
-//                    Text("Business")
-//                        .font(.largeTitle)
-//                }
-//                ForEach(model.expenses.businessItems) { item in
-//                    var background: UIColor {
-//                        if item.amount < 10 { return .green }
-//                        if item.amount < 100 { return .yellow }
-//                        return .red
-//                    }
-//                    ZStack{
-//                        Color(background)
-//                        HStack {
-//                            VStack(alignment: .leading) {
-//                                Text(item.name)
-//                                    .font(.headline)
-//                                Text(item.type)
-//                            }
-//                            Spacer()
-//                            Text(item.amount, format: .currency(code: "USD"))
-//                        }
-//                    }
-//                }
-//                .onDelete(perform: removePersonalItems)
-//            }
+            List {
+                if model.count > 0 {
+                    Text("Personal")
+                        .font(.largeTitle)
+                }
+                ForEach(model) { item in
+                    var background: UIColor {
+                        if item.amount < 10 { return .green }
+                        if item.amount < 100 { return .yellow }
+                        return .red
+                    }
+                    ZStack{
+                        Color(background)
+                        HStack {
+                            VStack(alignment: .leading) {
+                                Text(item.name)
+                                    .font(.headline)
+                                Text(item.type)
+                            }
+                            Spacer()
+                            Text(item.amount, format: .currency(code: "USD"))
+                        }
+                    }
+                }
+                .onDelete(perform: removePersonalItems)
+                if model.count > 0 {
+                    Text("Business")
+                        .font(.largeTitle)
+                }
+                ForEach(model) { item in
+                    var background: UIColor {
+                        if item.amount < 10 { return .green }
+                        if item.amount < 100 { return .yellow }
+                        return .red
+                    }
+                    ZStack{
+                        Color(background)
+                        HStack {
+                            VStack(alignment: .leading) {
+                                Text(item.name)
+                                    .font(.headline)
+                                Text(item.type)
+                            }
+                            Spacer()
+                            Text(item.amount, format: .currency(code: "USD"))
+                        }
+                    }
+                }
+                .onDelete(perform: removePersonalItems)
+            }
         Text("test")
-            .navigationTitle($model.title)
+//            .navigationTitle($model.title)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
-                NavigationLink {
-                    //AddView(expenses: model.expenses)
-                } label: {
-                    Label("Add Expense", systemImage: "plus")
-                }
-                .navigationBarBackButtonHidden()
+                Button("add expense", action: addExpense)
             }
         }
     }
     
-//    func removePersonalItems(at offsets: IndexSet) {
+    func addExpense() {
+        modelContext.insert(ExpenseItem(name: "test name", type: "test type", amount: 20.00))
+    }
+    
+    func removePersonalItems(at offsets: IndexSet) {
 //        model.expenses.personalItems.remove(atOffsets: offsets)
-//    }
-//    func removeBusinessItems(at offsets: IndexSet) {
+    }
+    func removeBusinessItems(at offsets: IndexSet) {
 //        model.expenses.businessItems.remove(atOffsets: offsets)
-//    }
+    }
 }
 
 #Preview {
     do {
         let config = ModelConfiguration(isStoredInMemoryOnly: true)
-        let container = try ModelContainer(for: ContentModel.self, configurations: config)
+        let container = try ModelContainer(for: ExpenseItem.self, configurations: config)
 
         return ContentView()
             .modelContainer(container)

@@ -22,7 +22,7 @@ struct AddView: View {
     @State private var amount = 0.0
     @State private var currency = currencyType.USD
     
-    var expenses: Expenses
+    //var expenses: Expense
     
     let types = ["Business", "Personal"]
     
@@ -61,6 +61,6 @@ struct AddView: View {
     }
 }
 
-#Preview {
-    AddView(expenses: Expenses())
-}
+//#Preview {
+//    AddView(expenses: Expense())
+//}

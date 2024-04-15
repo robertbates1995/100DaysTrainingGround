@@ -14,6 +14,6 @@ struct iExpenseApp: App {
         WindowGroup {
             ContentView()
         }
-        .modelContainer(for: ContentModel.self)
+        .modelContainer(for: ExpenseItem.self)
     }
 }
