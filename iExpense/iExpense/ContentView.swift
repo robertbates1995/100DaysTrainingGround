@@ -77,31 +77,7 @@ struct ContentView: View {
                         }
                     }
                 }
-                .onDelete(perform: removePersonalItems)
-                if model.count > 0 {
-                    Text("Business")
-                        .font(.largeTitle)
-                }
-                ForEach(model) { item in
-                    var background: UIColor {
-                        if item.amount < 10 { return .green }
-                        if item.amount < 100 { return .yellow }
-                        return .red
-                    }
-                    ZStack{
-                        Color(background)
-                        HStack {
-                            VStack(alignment: .leading) {
-                                Text(item.name)
-                                    .font(.headline)
-                                Text(item.type)
-                            }
-                            Spacer()
-                            Text(item.amount, format: .currency(code: "USD"))
-                        }
-                    }
-                }
-                .onDelete(perform: removePersonalItems)
+                .onDelete(perform: deleteExpense)
             }
         Text("test")
 //            .navigationTitle($model.title)
@@ -116,11 +92,10 @@ struct ContentView: View {
         modelContext.insert(ExpenseItem(name: "test name", type: "test type", amount: 20.00))
     }
     
-    func removePersonalItems(at offsets: IndexSet) {
-//        model.expenses.personalItems.remove(atOffsets: offsets)
-    }
-    func removeBusinessItems(at offsets: IndexSet) {
-//        model.expenses.businessItems.remove(atOffsets: offsets)
+    func deleteExpense(_ indexSet: IndexSet) {
+        for index in indexSet {
+            modelContext.delete(model[index])
+        }
     }
 }
 
