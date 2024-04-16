@@ -2,8 +2,9 @@
 *.xcuserstate
 WordScramble/WordScramble.xcodeproj/xcuserdata/robertbates.xcuserdatad/xcdebugger/Breakpoints_v2.xcbkptlist
 *.jpg
-HackingWithSwift/
-*.pbxproj
 *.xcbkptlist
 *.xcworkspacedata
 *.plist
+HackingWithSwift/
+.DS_Store
+.DS_Store
