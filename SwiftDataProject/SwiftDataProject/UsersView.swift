@@ -49,6 +49,19 @@ struct UsersView: View {
 }
 
 #Preview {
-    UsersView(minimumJoinDate: .now, sortOrder: [SortDescriptor(\User.name)])
-        .modelContainer(for: User.self)
+    let config = ModelConfiguration(isStoredInMemoryOnly: true)
+    let container = try! ModelContainer(for: User.self, configurations: config)
+    
+    let first = User(name: "Ed Sheeran", city: "London", joinDate: .now.addingTimeInterval(86400 * -10))
+    let second = User(name: "Rosa Diaz", city: "New York", joinDate: .now.addingTimeInterval(86400 * -5))
+    let third = User(name: "Roy Kent", city: "London", joinDate: .now.addingTimeInterval(86400 * 5))
+    let fourth = User(name: "Johnny English", city: "London", joinDate: .now.addingTimeInterval(86400 * 10))
+    
+    let modelContext = container.mainContext
+    modelContext.insert(first)
+    modelContext.insert(second)
+    modelContext.insert(third)
+    modelContext.insert(fourth)
+    return UsersView(minimumJoinDate: .distantPast, sortOrder: [SortDescriptor(\User.name)])
+        .modelContainer(container)
 }
