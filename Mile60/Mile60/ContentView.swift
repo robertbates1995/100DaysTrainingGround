@@ -7,15 +7,33 @@
 
 import SwiftUI
 
+struct Response: Codable {
+    var users = [User]()
+}
+
 struct ContentView: View {
+    @State private var users = [User]()
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        List {
+            ForEach(users) { user in
+                Text(user.name)
+            }
         }
-        .padding()
+        .task {
+            await loadData()
+        }
+    }
+    
+    func loadData() async {
+        do {
+            let (data, _) = try await URLSession.shared.data(from: URL(string: "https://www.hackingwithswift.com/samples/friendface.json")!)
+            
+            let decodedResponse = try JSONDecoder().decode([User].self, from: data)
+            users = decodedResponse
+        } catch {
+            print(error.localizedDescription)
+        }
     }
 }
 
