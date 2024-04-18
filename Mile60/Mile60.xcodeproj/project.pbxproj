@@ -12,6 +12,7 @@
 		7A1BE9B42BCDDB5400A66CEB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7A1BE9B32BCDDB5400A66CEB /* Assets.xcassets */; };
 		7A1BE9B72BCDDB5400A66CEB /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7A1BE9B62BCDDB5400A66CEB /* Preview Assets.xcassets */; };
 		7A1BE9BE2BCDDB8200A66CEB /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A1BE9BD2BCDDB8200A66CEB /* Models.swift */; };
+		7A1BE9C02BD1910D00A66CEB /* UserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A1BE9BF2BD1910D00A66CEB /* UserView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -21,6 +22,7 @@
 		7A1BE9B32BCDDB5400A66CEB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7A1BE9B62BCDDB5400A66CEB /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		7A1BE9BD2BCDDB8200A66CEB /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
+		7A1BE9BF2BD1910D00A66CEB /* UserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,6 +57,7 @@
 			children = (
 				7A1BE9AF2BCDDB5200A66CEB /* Mile60App.swift */,
 				7A1BE9B12BCDDB5200A66CEB /* ContentView.swift */,
+				7A1BE9BF2BD1910D00A66CEB /* UserView.swift */,
 				7A1BE9BD2BCDDB8200A66CEB /* Models.swift */,
 				7A1BE9B32BCDDB5400A66CEB /* Assets.xcassets */,
 				7A1BE9B52BCDDB5400A66CEB /* Preview Content */,
@@ -140,6 +143,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7A1BE9C02BD1910D00A66CEB /* UserView.swift in Sources */,
 				7A1BE9BE2BCDDB8200A66CEB /* Models.swift in Sources */,
 				7A1BE9B22BCDDB5200A66CEB /* ContentView.swift in Sources */,
 				7A1BE9B02BCDDB5200A66CEB /* Mile60App.swift in Sources */,
