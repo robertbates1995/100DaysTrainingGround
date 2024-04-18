@@ -21,7 +21,9 @@ struct ContentView: View {
             }
         }
         .task {
-            await loadData()
+            if users.isEmpty {
+                await loadData()
+            }
         }
     }
     
