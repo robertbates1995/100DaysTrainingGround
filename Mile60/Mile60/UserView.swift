@@ -28,19 +28,22 @@ struct UserView: View {
     }
     
     var body: some View {
-        VStack {
+        VStack(alignment: .leading) {
             isActiveView
+            Text("\n\(user.company)")
+                .font(.headline).italic()
             Text(user.address)
+                .font(.subheadline)
             Text(user.email)
-            Text("Age: \(user.age)")
-            Text(user.company)
-            Text(user.about)
-                .padding()
+                .font(.subheadline)
+            Text("\n\n    \(user.about)")
+            Spacer()
         }
+        .padding(EdgeInsets(top: 0, leading: 10, bottom: 10, trailing: 10))
         .navigationTitle(user.name)
     }
 }
 
 #Preview {
-    UserView(user: User(id: "Test ID", isActive: true, name: "Test Name", age: 100, company: "Test Company", email: "Test email", address: "Test address", about: "Test About section", registered: "Test regestration", tags: ["test tag 1", "test tag 2"], friends: [Friend(id: "test friend ID", name: "Test friend name")]))
+    UserView(user: User(id: "Test ID", isActive: true, name: "Test Name", age: 100, company: "Test Company", email: "Test email", address: "Test address", about: "Occaecat consequat elit aliquip magna laboris dolore laboris sunt officia adipisicing reprehenderit sunt. Do in proident consectetur labore. Laboris pariatur quis incididunt nostrud labore ad cillum veniam ipsum ullamco. Dolore laborum commodo veniam nisi. Eu ullamco cillum ex nostrud fugiat eu consequat enim cupidatat. Non incididunt fugiat cupidatat reprehenderit nostrud eiusmod eu sit minim do amet qui cupidatat. Elit aliquip nisi ea veniam proident dolore exercitation irure est deserunt.", registered: "Test regestration", tags: ["test tag 1", "test tag 2"], friends: [Friend(id: "test friend ID", name: "Test friend name")]))
 }
