@@ -30,7 +30,7 @@ struct UserView: View {
     var body: some View {
         VStack(alignment: .leading) {
             isActiveView
-            Text("\n\(user.company)")
+            Text("\(user.company)")
                 .font(.headline).italic()
             Text(user.address)
                 .font(.subheadline)
