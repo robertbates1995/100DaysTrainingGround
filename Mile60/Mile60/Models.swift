@@ -68,7 +68,12 @@ class User: Codable, Identifiable {
     required init(from decoder: any Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.id = try container.decode(String.self, forKey: .id)
-        self.isActive = try container.decode(Bool.self, forKey: .isActive)
+        let stringIsActive = try container.decode(String.self, forKey: .isActive)
+        if stringIsActive == "true" {
+            self.isActive = true
+        } else {
+            self.isActive = false
+        }
         self.name = try container.decode(String.self, forKey: .name)
         self.age = try container.decode(Int.self, forKey: .age)
         self.company = try container.decode(String.self, forKey: .company)
