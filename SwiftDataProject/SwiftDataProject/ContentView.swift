@@ -72,8 +72,8 @@ struct ContentView: View {
     modelContext.insert(second)
     modelContext.insert(third)
     modelContext.insert(fourth)
-
+    
     return ContentView()
         .modelContainer(container)
-
+    
 }
