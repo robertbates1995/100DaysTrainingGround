@@ -13,7 +13,16 @@ struct ContentView: View {
     @State private var image: Image?
     
     var body: some View {
-        ContentUnavailableView("No snippets", systemImage: "swift", description: Text("You don't have any saved snippets yet."))
+        ContentUnavailableView {
+            Label("No snippets", systemImage: "swift")
+        } description: {
+            Text("You don't have any saved snippets yet.")
+        } actions: {
+            Button("Create Snippet") {
+                // create a snippet
+            }
+            .buttonStyle(.borderedProminent)
+        }
     }
 }
 
