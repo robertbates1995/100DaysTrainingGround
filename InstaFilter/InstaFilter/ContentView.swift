@@ -5,23 +5,34 @@
 //  Created by Robert Bates on 4/29/24.
 //
 
-import CoreImage
-import CoreImage.CIFilterBuiltins
+import PhotosUI
 import SwiftUI
 
 struct ContentView: View {
-    @State private var image: Image?
+    @State private var pickerItems = [PhotosPickerItem]()
+    @State private var selectedImages = [Image]()
     
     var body: some View {
-        ContentUnavailableView {
-            Label("No snippets", systemImage: "swift")
-        } description: {
-            Text("You don't have any saved snippets yet.")
-        } actions: {
-            Button("Create Snippet") {
-                // create a snippet
+        VStack {
+            PhotosPicker("Select a picture", selection: $pickerItems, matching: .images)
+            
+            ScrollView {
+                ForEach(0..<selectedImages.count, id: \.self) { i in
+                    selectedImages[i]
+                        .resizable()
+                        .scaledToFit()
+                }
             }
-            .buttonStyle(.borderedProminent)
+        }
+        .onChange(of: pickerItems) {
+            Task {
+                selectedImages.removeAll()
+                for item in pickerItems {
+                    if let loadedImage = try await item.loadTransferable(type: Image.self) {
+                        selectedImages.append(loadedImage)
+                    }
+                }
+            }
         }
     }
 }
