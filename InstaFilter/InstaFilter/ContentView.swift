@@ -5,16 +5,15 @@
 //  Created by Robert Bates on 4/29/24.
 //
 
-import PhotosUI
+import StoreKit
 import SwiftUI
 
 struct ContentView: View {
+    @Environment(\.requestReview) var requestReview
     
     var body: some View {
-        let example = Image(.paper)
-
-        ShareLink(item: example, preview: SharePreview("Paper stack", image: example)) {
-            Label("Click to share", systemImage: "airplane")
+        Button("Leave a review") {
+            requestReview()
         }
     }
 }
