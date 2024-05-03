@@ -13,7 +13,7 @@ struct ContentView: View {
     var body: some View {
         let example = Image(.paper)
 
-        ShareLink(item: example, preview: SharePreview("Singapore Airport", image: example)) {
+        ShareLink(item: example, preview: SharePreview("Paper stack", image: example)) {
             Label("Click to share", systemImage: "airplane")
         }
     }
