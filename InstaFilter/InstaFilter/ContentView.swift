@@ -17,7 +17,13 @@ struct ContentView: View {
             VStack {
                 Spacer()
 
-                // image area
+                if let processedImage {
+                    processedImage
+                        .resizable()
+                        .scaledToFit()
+                } else {
+                    ContentUnavailableView("No Picture", image: "photo.badge.plus", description: Text("Tap to import a photo"))
+                }
 
                 Spacer()
 
