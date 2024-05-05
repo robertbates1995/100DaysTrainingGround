@@ -9,11 +9,36 @@ import StoreKit
 import SwiftUI
 
 struct ContentView: View {
-    @Environment(\.requestReview) var requestReview
+    @State private var processedImage: Image?
+    @State private var filterIntensity = 0.5
     
     var body: some View {
-        Button("Leave a review") {
-            requestReview()
+        NavigationStack {
+            VStack {
+                Spacer()
+
+                // image area
+
+                Spacer()
+
+                HStack {
+                    Text("Intensity")
+                    Slider(value: $filterIntensity)
+                }
+                .padding(.vertical)
+
+                HStack {
+                    Button("Change Filter") {
+                        // change filter
+                    }
+
+                    Spacer()
+
+                    // share the picture
+                }
+            }
+            .padding([.horizontal, .bottom])
+            .navigationTitle("Instafilter")
         }
     }
 }
