@@ -16,6 +16,8 @@ struct ContentView: View {
     @State private var selectedItem: PhotosPickerItem?
     @State private var showingFilters = false
     
+    @AppStorage("filterCount") var filterCount = 0
+    
     @State private var currentFilter: CIFilter = CIFilter.sepiaTone()
     let context = CIContext()
     
@@ -50,8 +52,10 @@ struct ContentView: View {
                     }
 
                     Spacer()
-
-                    // share the picture
+                    
+                    if let processedImage {
+                        ShareLink(item: processedImage, preview: SharePreview("InstaFilter Image", image: processedImage))
+                    }
                 }
             }
             .padding([.horizontal, .bottom])
