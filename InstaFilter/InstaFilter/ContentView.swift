@@ -20,7 +20,7 @@ struct ContentView: View {
     @AppStorage("filterCount") var filterCount = 0
     @Environment(\.requestReview) var requestReview
     
-    @State private var currentFilters: [CIFilter] = [CIFilter.sepiaTone()]
+    @State private var currentFilter: CIFilter = CIFilter.sepiaTone()
     let context = CIContext()
     
     var body: some View {
@@ -92,21 +92,17 @@ struct ContentView: View {
             guard let inputImage = UIImage(data: imageData) else { return }
             
             let beginImage = CIImage(image: inputImage)
-            for i in currentFilters {
-                i.setValue(beginImage, forKey: kCIInputImageKey)
-            }
+            currentFilter.setValue(beginImage, forKey: kCIInputImageKey)
             applyProcessing()
         }
     }
     
     func applyProcessing() {
-        for filter in currentFilters {
-            let inputKeys = filter.inputKeys
-            
-            if inputKeys.contains(kCIInputIntensityKey) { filter.setValue(filterIntensity, forKey: kCIInputIntensityKey) }
-            if inputKeys.contains(kCIInputRadiusKey) { filter.setValue(filterIntensity * 200, forKey: kCIInputRadiusKey) }
-            if inputKeys.contains(kCIInputScaleKey) { filter.setValue(filterIntensity * 10, forKey: kCIInputScaleKey) }
-        }
+        let inputKeys = currentFilter.inputKeys
+        
+        if inputKeys.contains(kCIInputIntensityKey) { currentFilter.setValue(filterIntensity, forKey: kCIInputIntensityKey) }
+        if inputKeys.contains(kCIInputRadiusKey) { currentFilter.setValue(filterIntensity * 200, forKey: kCIInputRadiusKey) }
+        if inputKeys.contains(kCIInputScaleKey) { currentFilter.setValue(filterIntensity * 10, forKey: kCIInputScaleKey) }
         
         guard let outputImage = currentFilter.outputImage else { return }
         guard let cgImage = context.createCGImage(outputImage, from: outputImage.extent) else { return }
