@@ -16,9 +16,30 @@ struct ContentView: View {
         )
     )
     
+    let locations = [
+        Location(name: "Buckingham Palace", coordinate: CLLocationCoordinate2D(latitude: 51.501, longitude: -0.141)),
+        Location(name: "Tower of London", coordinate: CLLocationCoordinate2D(latitude: 51.508, longitude: -0.076))
+    ]
+    
     var body: some View {
-        Map(position: $position, interactionModes: [.rotate, .zoom])
-            .mapStyle(.hybrid(elevation: .realistic))
+        Map(position: $position, interactionModes: [.rotate, .zoom]) {
+            ForEach(locations) { location in
+                Annotation(location.name, coordinate: location.coordinate) {
+                    Text(location.name)
+                        .font(.headline)
+                        .padding()
+                        .background(.blue)
+                        .foregroundStyle(.white)
+                        .clipShape(.capsule)
+                }
+                .annotationTitles(.hidden)
+            }
+        }
+        .mapStyle(.hybrid(elevation: .realistic))
+        .onMapCameraChange { context in
+            print(context.region)
+        }
+        
         HStack(spacing: 50) {
             Button("Paris") {
                 position = MapCameraPosition.region(
@@ -28,7 +49,7 @@ struct ContentView: View {
                     )
                 )
             }
-
+            
             Button("Tokyo") {
                 position = MapCameraPosition.region(
                     MKCoordinateRegion(
@@ -39,6 +60,12 @@ struct ContentView: View {
             }
         }
     }
+}
+
+struct Location: Identifiable {
+    let id = UUID()
+    var name: String
+    var coordinate: CLLocationCoordinate2D
 }
 
 #Preview {
