@@ -8,16 +8,38 @@
 import SwiftUI
 
 struct ContentView: View {
-    let users = [User(firstName: "Arnold", lastName: "Rimmer"),
-                 User(firstName: "Kristine", lastName: "Kochanski"),
-                 User(firstName: "David", lastName: "Lister"),
-    ].sorted { $0.firstName > $1.lastName }
+    @State private var loadingState = LoadingState.loading
     
-    let values = [1, 5, 3, 6, 2, 9].sorted()
+    enum LoadingState {
+        case loading, success, failed
+    }
+    
+    struct LoadingView: View {
+        var body: some View {
+            Text("Loading...")
+        }
+    }
+
+    struct SuccessView: View {
+        var body: some View {
+            Text("Success!")
+        }
+    }
+
+    struct FailedView: View {
+        var body: some View {
+            Text("Failed.")
+        }
+    }
     
     var body: some View {
-        List(users) { user in
-            Text("\(user.firstName) \(user.lastName)")
+        switch loadingState {
+        case .loading:
+            LoadingView()
+        case .success:
+            SuccessView()
+        case .failed:
+            FailedView()
         }
     }
 }
