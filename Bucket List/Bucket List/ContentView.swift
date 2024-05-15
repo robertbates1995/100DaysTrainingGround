@@ -6,51 +6,38 @@
 //
 
 import SwiftUI
+import MapKit
 
 struct ContentView: View {
-    @State private var loadingState = LoadingState.loading
-    
-    enum LoadingState {
-        case loading, success, failed
-    }
-    
-    struct LoadingView: View {
-        var body: some View {
-            Text("Loading...")
-        }
-    }
-
-    struct SuccessView: View {
-        var body: some View {
-            Text("Success!")
-        }
-    }
-
-    struct FailedView: View {
-        var body: some View {
-            Text("Failed.")
-        }
-    }
+    @State private var position = MapCameraPosition.region(
+        MKCoordinateRegion(
+            center: CLLocationCoordinate2D(latitude: 51.507222, longitude: -0.1275),
+            span: MKCoordinateSpan(latitudeDelta: 1, longitudeDelta: 1)
+        )
+    )
     
     var body: some View {
-        switch loadingState {
-        case .loading:
-            LoadingView()
-        case .success:
-            SuccessView()
-        case .failed:
-            FailedView()
-        }
-    }
-}
+        Map(position: $position, interactionModes: [.rotate, .zoom])
+            .mapStyle(.hybrid(elevation: .realistic))
+        HStack(spacing: 50) {
+            Button("Paris") {
+                position = MapCameraPosition.region(
+                    MKCoordinateRegion(
+                        center: CLLocationCoordinate2D(latitude: 48.8566, longitude: 2.3522),
+                        span: MKCoordinateSpan(latitudeDelta: 1, longitudeDelta: 1)
+                    )
+                )
+            }
 
-struct User: Identifiable, Comparable {
-    let id = UUID()
-    var firstName: String
-    var lastName: String
-    
-    static func < (lhs: User, rhs: User) -> Bool {
-        lhs.lastName < rhs.firstName
+            Button("Tokyo") {
+                position = MapCameraPosition.region(
+                    MKCoordinateRegion(
+                        center: CLLocationCoordinate2D(latitude: 35.6897, longitude: 139.6922),
+                        span: MKCoordinateSpan(latitudeDelta: 1, longitudeDelta: 1)
+                    )
+                )
+            }
+        }
     }
 }
 
