@@ -39,7 +39,11 @@ struct ContentView: View {
                 }
             }
             .sheet(item: $selectedPlace) { place in
-                Text(place.name)
+                EditView(location: place) { newLocation in
+                    if let index = locations.firstIndex(of: place) {
+                        locations[index] = newLocation
+                    }
+                }
             }
             .onTapGesture { position in
                 if let coordinate = proxy.convert(position, from: .local) {
@@ -52,7 +56,7 @@ struct ContentView: View {
 }
 
 struct Location: Codable, Equatable, Identifiable {
-    let id: UUID
+    var id: UUID
     var name: String
     var description: String
     var latitude: Double
