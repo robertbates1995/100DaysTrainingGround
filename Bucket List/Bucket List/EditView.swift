@@ -63,6 +63,9 @@ struct EditView: View {
                     dismiss()
                 }
             }
+            .task {
+                await fetchNearbyPlaces()
+            }
         }
     }
     
