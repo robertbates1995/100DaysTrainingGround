@@ -8,15 +8,22 @@
 import SwiftUI
 
 struct ContentView: View {
+    let users = [User(firstName: "First1", lastName: "Last1"),
+                 User(firstName: "First2", lastName: "Last2"),
+                 User(firstName: "First3", lastName: "Last3")]
+    let values = [1, 5, 3, 6, 2, 9].sorted()
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        List(users) { user in
+            Text("\(user.firstName) \(user.lastName)")
         }
-        .padding()
     }
+}
+
+struct User: Identifiable {
+    let id = UUID()
+    var firstName: String
+    var lastName: String
 }
 
 #Preview {
