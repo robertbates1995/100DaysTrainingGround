@@ -9,8 +9,19 @@ import SwiftUI
 import LocalAuthentication
 
 struct ContentView: View {
+    @State private var isUnlocked = false
+    
     var body: some View {
         
+        VStack{
+            if isUnlocked {
+                Text("unlocked")
+            } else {
+                Text("locked")
+            }
+        }
+        .padding()
+        .background(isUnlocked ? Color(.green) : Color(.red))
     }
     
     func authenticate() {
@@ -22,11 +33,14 @@ struct ContentView: View {
             
             context.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: reason) { success, authenticationError in
                 if success {
+                    isUnlocked = true
                     //authenticated successfully
                 } else {
                     //there was a problem
                 }
             }
+        } else {
+            //no biometrics available
         }
     }
 }
