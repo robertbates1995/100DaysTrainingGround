@@ -9,8 +9,14 @@ import SwiftUI
 
 struct EditView: View {
     @Environment(\.dismiss) var dismiss
+    @State private var loadingState = LoadingState.loading
+    @State private var pages = [Page]()
+
     var location: Location
     var onSave: (Location) -> Void
+    enum LoadingState {
+        case loading, loaded, failed
+    }
 
 
     @State private var name: String
@@ -30,6 +36,22 @@ struct EditView: View {
                 Section {
                     TextField("Place name", text: $name)
                     TextField("Description", text: $description)
+                }
+                Section("Nearby…") {
+                    switch loadingState {
+                    case .loaded:
+                        ForEach(pages, id: \.pageid) { page in
+                            Text(page.title)
+                                .font(.headline)
+                            + Text(": ") +
+                            Text("Page description here")
+                                .italic()
+                        }
+                    case .loading:
+                        Text("Loading…")
+                    case .failed:
+                        Text("Please try again later.")
+                    }
                 }
             }
             .navigationTitle("Place details")
