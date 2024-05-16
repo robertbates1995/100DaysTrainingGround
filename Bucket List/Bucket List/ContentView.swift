@@ -10,16 +10,12 @@ import MapKit
 
 struct ContentView: View {
     
-    @State private var selectedPlace: Location?
-    
     let startPosition = MapCameraPosition.region(
         MKCoordinateRegion(
             center: CLLocationCoordinate2D(latitude: 56, longitude: -3),
             span: MKCoordinateSpan(latitudeDelta: 10, longitudeDelta: 10)
         )
     )
-    
-    @State private var locations = [Location]()
     
     var body: some View {
         MapReader { proxy in
