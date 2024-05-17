@@ -37,6 +37,7 @@ struct ContentView: View {
                         }
                     }
                 }
+                .mapStyle(viewModel.style ? .imagery : .hybrid)
                 .onTapGesture { position in
                     if let coordinate = proxy.convert(position, from: .local) {
                         viewModel.addLocation(at: coordinate)
@@ -47,6 +48,10 @@ struct ContentView: View {
                         viewModel.update(location: $0)
                     }
                 }
+                Button("Toggle view style") {
+                    viewModel.style.toggle()
+                }
+                .padding()
             }
         } else {
             Button("Unlock Places", action: viewModel.authenticate)
@@ -56,24 +61,6 @@ struct ContentView: View {
                 .clipShape(.capsule)
         }
     }
-}
-
-struct Location: Codable, Equatable, Identifiable {
-    var id: UUID
-    var name: String
-    var description: String
-    var latitude: Double
-    var longitude: Double
-    var coordinate: CLLocationCoordinate2D {
-        CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
-    }
-    
-    static func ==(lhs: Location, rhs: Location) -> Bool {
-        lhs.id == rhs.id
-    }
-    
-    static let example = Location(id: UUID(), name: "Buckingham Palace", description: "Lit by over 40,000 lightbulbs.", latitude: 51.501, longitude: -0.141)
-    
 }
 
 #Preview {
