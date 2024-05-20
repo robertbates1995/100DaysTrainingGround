@@ -19,7 +19,7 @@ struct ContentView: View {
     
     @AppStorage("filterCount") var filterCount = 0
     @Environment(\.requestReview) var requestReview
-    
+     
     @State private var currentFilter: CIFilter = CIFilter.sepiaTone()
     let context = CIContext()
     

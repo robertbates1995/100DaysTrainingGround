@@ -11,6 +11,7 @@
 		7A62050C2BF98BAF0097D458 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A62050B2BF98BAF0097D458 /* ContentView.swift */; };
 		7A62050E2BF98BB10097D458 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7A62050D2BF98BB10097D458 /* Assets.xcassets */; };
 		7A6205112BF98BB10097D458 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7A6205102BF98BB10097D458 /* Preview Assets.xcassets */; };
+		7A6205182BFAE7A50097D458 /* UserTileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A6205172BFAE7A50097D458 /* UserTileView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,6 +20,7 @@
 		7A62050B2BF98BAF0097D458 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		7A62050D2BF98BB10097D458 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7A6205102BF98BB10097D458 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		7A6205172BFAE7A50097D458 /* UserTileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTileView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,6 +55,7 @@
 			children = (
 				7A6205092BF98BAF0097D458 /* NameCardApp.swift */,
 				7A62050B2BF98BAF0097D458 /* ContentView.swift */,
+				7A6205172BFAE7A50097D458 /* UserTileView.swift */,
 				7A62050D2BF98BB10097D458 /* Assets.xcassets */,
 				7A62050F2BF98BB10097D458 /* Preview Content */,
 			);
@@ -138,6 +141,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7A62050C2BF98BAF0097D458 /* ContentView.swift in Sources */,
+				7A6205182BFAE7A50097D458 /* UserTileView.swift in Sources */,
 				7A62050A2BF98BAF0097D458 /* NameCardApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

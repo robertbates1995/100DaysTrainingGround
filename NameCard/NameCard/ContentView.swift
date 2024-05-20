@@ -9,7 +9,19 @@ import CoreImage.CIFilterBuiltins
 import SwiftUI
 import PhotosUI
 
+class User: Identifiable {
+    let id = UUID()
+    let photo: Image
+    let name: String
+    
+    init(photo: Image, name: String) {
+        self.photo = photo
+        self.name = name
+    }
+}
+
 struct ContentView: View {
+    @State private var processedUsers: [User]?
     @State private var processedImage: Image?
     @State private var selectedItem: PhotosPickerItem?
     @State private var currentFilter: CIFilter = CIFilter.sepiaTone()
@@ -20,10 +32,10 @@ struct ContentView: View {
         NavigationStack {
             VStack {
                 PhotosPicker(selection: $selectedItem) {
-                    if let processedImage {
-                        processedImage
-                            .resizable()
-                            .scaledToFit()
+                    if let processedUsers {
+                        ForEach(processedUsers) { user in
+                            UserTileView(user: user)
+                        }
                     } else {
                         ContentUnavailableView("No Picture", image: "photo.badge.plus", description: Text("Tap to import a photo"))
                     }
@@ -33,7 +45,14 @@ struct ContentView: View {
                     arrowEdge: .bottom
                 ) {
                     @State var temp: String = ""
-                    TextField("Name", text: $temp)
+                    
+                    TextField(
+                        "Name",
+                        text: $temp
+                    )
+                    .onSubmit {
+                        //save to new user tile
+                    }
                     Button("Save") {
                         showPopover = false
                     }
