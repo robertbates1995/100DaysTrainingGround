@@ -36,6 +36,7 @@ struct ContentView: View {
                         ContentUnavailableView("No Picture", image: "photo.badge.plus", description: Text("Tap to import a photo"))
                     }
                 }
+            
                 .buttonStyle(.plain)
                 .onChange(of: selectedItem, loadImage)
                 
