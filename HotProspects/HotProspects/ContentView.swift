@@ -9,16 +9,18 @@ import SamplePackage
 import SwiftUI
 
 struct ContentView: View {
-    let possibleNumbers = 1...60
-    
-    var results: String {
-        let selected = possibleNumbers.random(7).sorted()
-        let strings = selected.map(String.init)
-        return strings.formatted()
-    }
     
     var body: some View {
-        Text(results)
+        TabView {
+            ProspectsView()
+                .tabItem { Label("Everyone", systemImage: "person.3") }
+            ProspectsView()
+                .tabItem { Label("Contacted", systemImage: "checkmark.circle") }
+            ProspectsView()
+                .tabItem { Label("Uncontacted", systemImage: "questionmark.diamond") }
+            MeView()
+                .tabItem { Label("Me", systemImage: "person.crop.square") }
+        }
     }
 }
 
