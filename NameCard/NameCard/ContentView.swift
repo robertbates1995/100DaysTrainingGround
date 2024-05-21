@@ -31,15 +31,14 @@ struct ContentView: View {
     var body: some View {
         NavigationStack {
             VStack {
+                List {
+                    ForEach(processedUsers) { user in
+                        UserTileView(user: user)
+                    }
+                }
                 PhotosPicker(selection: $selectedItem) {
                     if processedUsers.isEmpty {
                         ContentUnavailableView("No Picture", image: "photo.badge.plus", description: Text("Tap to import a photo"))
-                    } else {
-                        List {
-                            ForEach(processedUsers) { user in
-                                UserTileView(user: user)
-                            }
-                        }
                     }
                 }
                 .popover(
@@ -59,6 +58,21 @@ struct ContentView: View {
                 }
                 .buttonStyle(.plain)
                 .onChange(of: selectedItem, loadImage)
+                    PhotosPicker(selection: $selectedItem) {
+                        Text("New Contact")
+                    }
+                    .popover(isPresented: $showPopover) {
+                        TextField(
+                            "Name",
+                            text: $userName
+                        )
+                        .onSubmit {
+                            if let processedImage {
+                                processedUsers.append(User(photo: processedImage, name: userName))
+                            }
+                            showPopover = false
+                        }
+                    }
             }
         }
     }
