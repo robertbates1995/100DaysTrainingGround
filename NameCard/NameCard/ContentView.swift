@@ -27,14 +27,17 @@ struct ContentView: View {
     @State private var currentFilter: CIFilter = CIFilter.sepiaTone()
     @State private var showPopover: Bool = false
     
-    
     var body: some View {
         NavigationStack {
             VStack {
                 PhotosPicker(selection: $selectedItem) {
                     if let processedUsers {
-                        ForEach(processedUsers) { user in
-                            UserTileView(user: user)
+                        Grid{
+                            GridRow {
+                                ForEach(processedUsers) { user in
+                                    UserTileView(user: user)
+                                }
+                            }
                         }
                     } else {
                         ContentUnavailableView("No Picture", image: "photo.badge.plus", description: Text("Tap to import a photo"))

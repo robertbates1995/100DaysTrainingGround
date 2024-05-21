@@ -19,5 +19,6 @@ struct UserTileView: View {
 }
 
 #Preview {
-    UserTileView(user: User(photo: Image("photo.badge.plus"), name: "Test Name"))
+    UserTileView(
+        user: User(photo: Image("photo.badge.plus"), name: "Test Name"))
 }

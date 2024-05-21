@@ -36,7 +36,6 @@ struct ContentView: View {
                         ContentUnavailableView("No Picture", image: "photo.badge.plus", description: Text("Tap to import a photo"))
                     }
                 }
-            
                 .buttonStyle(.plain)
                 .onChange(of: selectedItem, loadImage)
                 
@@ -64,7 +63,8 @@ struct ContentView: View {
                     Spacer()
                     
                     if let processedImage {
-                        ShareLink(item: processedImage, preview: SharePreview("InstaFilter Image", image: processedImage))
+                        ShareLink(item: processedImage, preview: SharePreview("InstaFilter Image", image: processedImage)
+                        )
                     }
                 }
             }
