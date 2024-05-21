@@ -12,13 +12,15 @@ struct ContentView: View {
     @State private var selection = Set<String>()
     
     var body: some View {
-        List(users, id: \.self) { user in
+        List(users, id: \.self, selection: $selection) { user in
             Text(user)
         }
         
         if selection.isEmpty == false {
-            Text("you selected: \(selection)")
+            Text("you selected: \(selection.formatted())")
         }
+        
+        EditButton()
     }
 }
 
