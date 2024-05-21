@@ -15,12 +15,12 @@ struct ContentView: View {
             Button("Show tab 2") {
                 selectedTab = "Two"
             }
-            .tabItem { Label("One", image: "star") }
+            .tabItem { Label("One", systemImage: "star") }
             .tag("One")
             Button("Show tab 1") {
                 selectedTab = "One"
             }
-            .tabItem { Label("Two", image: "circle") }
+            .tabItem { Label("Two", systemImage: "circle") }
             .tag("Two")
         }
     }
