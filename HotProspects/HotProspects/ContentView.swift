@@ -9,14 +9,14 @@ import SwiftUI
 
 struct ContentView: View {
     let users = ["Tohru", "Yuki", "Kyo", "Momiji"]
-    @State private var selection: String?
+    @State private var selection = Set<String>()
     
     var body: some View {
         List(users, id: \.self) { user in
             Text(user)
         }
         
-        if let selection {
+        if selection.isEmpty == false {
             Text("you selected: \(selection)")
         }
     }
