@@ -21,8 +21,9 @@ class User: Identifiable {
 }
 
 struct ContentView: View {
-    @State private var processedUsers: [User]?
+    @State private var processedUsers = [User]()
     @State private var processedImage: Image?
+    @State private var userName: String = ""
     @State private var selectedItem: PhotosPickerItem?
     @State private var currentFilter: CIFilter = CIFilter.sepiaTone()
     @State private var showPopover: Bool = false
@@ -31,32 +32,28 @@ struct ContentView: View {
         NavigationStack {
             VStack {
                 PhotosPicker(selection: $selectedItem) {
-                    if let processedUsers {
-                        Grid{
-                            GridRow {
-                                ForEach(processedUsers) { user in
-                                    UserTileView(user: user)
-                                }
+                    if processedUsers.isEmpty {
+                        ContentUnavailableView("No Picture", image: "photo.badge.plus", description: Text("Tap to import a photo"))
+                    } else {
+                        List {
+                            ForEach(processedUsers) { user in
+                                UserTileView(user: user)
                             }
                         }
-                    } else {
-                        ContentUnavailableView("No Picture", image: "photo.badge.plus", description: Text("Tap to import a photo"))
                     }
                 }
                 .popover(
                     isPresented: $showPopover,
                     arrowEdge: .bottom
                 ) {
-                    @State var temp: String = ""
-                    
                     TextField(
                         "Name",
-                        text: $temp
+                        text: $userName
                     )
                     .onSubmit {
-                        //save to new user tile
-                    }
-                    Button("Save") {
+                        if let processedImage {
+                            processedUsers.append(User(photo: processedImage, name: userName))
+                        }
                         showPopover = false
                     }
                 }
