@@ -7,6 +7,7 @@
 
 import SwiftData
 import SwiftUI
+import CodeScanner
 
 struct ProspectsView: View {
     enum FilterType {
@@ -15,6 +16,8 @@ struct ProspectsView: View {
     
     @Environment(\.modelContext) var modelContext
     @Query(sort: \Prospect.name) var prospects: [Prospect]
+    
+    @State private var isShowingScanner = false
     
     let filter: FilterType
     
@@ -54,11 +57,15 @@ struct ProspectsView: View {
             .navigationTitle(title)
             .toolbar {
                 Button("Scan", systemImage: "qrcode.viewfinder") {
-                    let prospect = Prospect(name: "Robert Bates", emailAddress: "test@test.com", isContacted: false)
-                    modelContext.insert(prospect)
+                    isShowingScanner = true
                 }
             }
         }
+    }
+    
+    func handleScan(result: Result<ScanResult, ScanError>) {
+       isShowingScanner = false
+       // more code to come
     }
 }
 
