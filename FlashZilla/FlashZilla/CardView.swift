@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct CardView: View {
+    @Environment(\.accessibilityDifferentiateWithoutColor) var accessibilityDifferentiateWithoutColor
     @State private var offset = CGSize.zero
     @State private var isShowingAnswer = false
     let card: Card
@@ -15,8 +16,20 @@ struct CardView: View {
     
     var body: some View {
         ZStack {
-            RoundedRectangle(cornerRadius: 25.0)
-                .fill(.white)
+            RoundedRectangle(cornerRadius: 25)
+                .fill(
+                    accessibilityDifferentiateWithoutColor
+                        ? .white
+                        : .white
+                            .opacity(1 - Double(abs(offset.width / 50)))
+
+                )
+                .background(
+                    accessibilityDifferentiateWithoutColor
+                        ? nil
+                        : RoundedRectangle(cornerRadius: 25)
+                            .fill(offset.width > 0 ? .green : .red)
+                )
                 .shadow(radius: 10)
             VStack {
                 Text(card.prompt)
@@ -32,16 +45,16 @@ struct CardView: View {
             .multilineTextAlignment(.center)
         }
         .frame(width: 450, height: 250)
-        .rotationEffect(.degrees(offset.width / 10.0))
-        .offset(x: offset.width * 3)
+        .rotationEffect(.degrees(offset.width / 15.0))
+        .offset(x: offset.width * 2)
         .opacity(2 - Double(abs(offset.width / 70)))
         .gesture(
             DragGesture()
                 .onChanged { gesture in
-                    offset = gesture.translation
+                    offset.width = gesture.translation.width / 1.5
                 }
                 .onEnded { _ in
-                    if abs(offset.width) > 100 {
+                    if abs(offset.width) >= 100 {
                         removal?()
                     } else {
                         offset = .zero
