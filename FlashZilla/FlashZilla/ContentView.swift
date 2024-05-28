@@ -34,8 +34,16 @@ struct ContentView: View {
                         .stacked(at: index, in: cards.count)
                     }
                 }
+                .allowsHitTesting(timeRemaining > 0)
+                if cards.isEmpty {
+                    Button("Start Again", action: resetCards)
+                        .padding()
+                        .background(.white)
+                        .foregroundStyle(.black)
+                        .clipShape(.capsule)
+                }
                 Spacer()
-                Text("Time: \(timeRemaining)")
+                Text("Time Remaining: \(timeRemaining)")
                     .font(.largeTitle)
                     .foregroundStyle(.white)
                     .padding(.horizontal, 20)
@@ -46,7 +54,6 @@ struct ContentView: View {
             if accessibilityDifferentiateWithoutColor {
                 VStack {
                     Spacer()
-                    
                     HStack {
                         Image(systemName: "xmark.circle")
                             .padding()
@@ -66,14 +73,15 @@ struct ContentView: View {
         }
         .onReceive(timer) { time in
             guard isActive else { return }
-            
             if timeRemaining > 0 {
                 timeRemaining -= 1
             }
         }
         .onChange(of: scenePhase) {
             if scenePhase == .active {
-                isActive = true
+                if cards.isEmpty == false {
+                    isActive = true
+                }
             } else {
                 isActive = false
             }
@@ -82,6 +90,16 @@ struct ContentView: View {
     
     func removeCard(at index: Int) {
         cards.remove(at: index)
+        
+        if cards.isEmpty {
+            isActive = false
+        }
+    }
+    
+    func resetCards() {
+        cards = Array<Card>(repeating: .example, count: 10)
+        timeRemaining = 100
+        isActive = true
     }
 }
 
