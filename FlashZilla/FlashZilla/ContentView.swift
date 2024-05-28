@@ -8,21 +8,19 @@
 import SwiftUI
 
 struct ContentView: View {
-    @Environment(\.accessibilityReduceMotion) var reduceMotion
-    @State private var scale = 1.0
+    @Environment(\.scenePhase) var scenePhase
 
     var body: some View {
-        Button("Hello, World!") {
-            if reduceMotion {
-                scale *= 1.5
-            } else {
-                withAnimation {
-                    scale *= 1.5
+        Text("Hello, world!")
+            .onChange(of: scenePhase) { oldPhase, newPhase in
+                if newPhase == .active {
+                    print("Active")
+                } else if newPhase == .inactive {
+                    print("Inactive")
+                } else if newPhase == .background {
+                    print("Background")
                 }
             }
-
-        }
-        .scaleEffect(scale)
     }
 }
 
