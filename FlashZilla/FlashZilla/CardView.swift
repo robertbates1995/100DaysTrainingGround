@@ -21,11 +21,9 @@ struct CardView: View {
                     .font(.largeTitle)
                     .foregroundStyle(.black)
                 if(isShowingAnswer) {
-                    Spacer()
                     Text(card.answer)
                         .font(.title)
                         .foregroundStyle(.secondary)
-                    Spacer()
                 }
             }
             .padding(20)
