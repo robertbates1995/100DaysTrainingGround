@@ -16,12 +16,16 @@ struct ContentView: View {
                 .resizable()
                 .ignoresSafeArea()
             VStack {
+                Spacer()
+                Spacer()
+                Spacer()
                 ZStack {
                     ForEach(0..<cards.count, id: \.self) { index in
                         CardView(card: cards[index])
                             .stacked(at: index, in: cards.count)
                     }
                 }
+                Spacer()
             }
         }
     }
