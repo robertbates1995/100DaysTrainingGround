@@ -23,30 +23,6 @@ class ExpenseItem: Identifiable {
     }
 }
 
-//@Model
-//class Expenses {
-//    var personalItems = [ExpenseItem]()
-//    var businessItems = [ExpenseItem]()
-//    
-//    init(personalItems: [ExpenseItem] = [ExpenseItem](), businessItems: [ExpenseItem] = [ExpenseItem]()) {
-//        self.personalItems = personalItems
-//        self.businessItems = businessItems
-//    }
-//}
-//
-//@Model
-//class ContentModel {
-//   @Relationship(deleteRule: .cascade) var expenses: Expenses = Expenses()
-//    var items
-//    var showingAddExpense = false
-//    var title = "iExpense"
-//    
-//    init(showingAddExpense: Bool = false, title: String = "iExpense") {
-//        self.showingAddExpense = showingAddExpense
-//        self.title = title
-//    }
-//}
-
 struct ContentView: View {
     @Environment(\.modelContext) var modelContext
     @Query private var model: [ExpenseItem]
