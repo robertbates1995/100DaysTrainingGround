@@ -39,16 +39,9 @@ struct InnerView: View {
 
 struct ContentView: View {
     var body: some View {
-        VStack {
-            GeometryReader { proxy in
-                Text("Hello, World!")
-                    .frame(width: proxy.size.width * 0.9, height: 40)
-                    .background(.red)
-            }
-
-            Text("More text")
-                .background(.blue)
-        }
+        OuterView()
+            .background(.red)
+            .coordinateSpace(name: "Custom")
     }
 }
 
