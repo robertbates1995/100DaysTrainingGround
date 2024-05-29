@@ -25,17 +25,46 @@ class Die: Identifiable {
 
 struct ContentView: View {
     @Environment(\.modelContext) var modelContext
-    @Query private var model: [Die]
+    @Query private var dice: [Die]
     
     var body: some View {
         NavigationStack{
             VStack {
-                Text(model.first?.value.formatted() ?? "no value")
-                Button("roll") {
-                    model.first?.roll()
+                ForEach(dice) { die in
+                    Text(die.value.formatted())
                 }
-                Button("Add Die") {
-                    modelContext.insert(Die())
+                HStack(alignment: .firstTextBaseline){
+                    Spacer()
+                    Button(action: { for i in dice {i.roll()} }) {
+                        VStack {
+                            Image(systemName: "dice")
+                                .font(.title)
+                            Text("roll")
+                        }
+                        .frame(width: 100, height: 80)
+                        .background(.yellow)
+                    }
+                    Spacer()
+                    Button(action: { modelContext.insert(Die()) }) {
+                        VStack {
+                            Image(systemName: "plus")
+                                .font(.title)
+                            Text("Add die")
+                        }
+                    }
+                    .frame(width: 100, height: 80)
+                    .background(.yellow)
+                    Spacer()
+                    Button(action: { if !dice.isEmpty {modelContext.delete(dice.last!)} }) {
+                        VStack {
+                            Image(systemName: "minus")
+                                .font(.title)
+                            Text("Remove die")
+                        }
+                    }
+                    .frame(width: 100, height: 80)
+                    .background(.yellow)
+                    Spacer()
                 }
             }
             .padding()
