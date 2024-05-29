@@ -7,6 +7,17 @@
 
 import SwiftUI
 
+struct OuterView: View {
+    var body: some View {
+        VStack {
+            Text("Top")
+            InnerView()
+                .background(.green)
+            Text("Bottom")
+        }
+    }
+}
+
 struct InnerView: View {
     var body: some View {
         HStack {
