@@ -7,17 +7,22 @@
 
 import SwiftUI
 
+struct User: Identifiable {
+    var id = "Taylor Swift"
+}
+
 struct ContentView: View {
+    @State private var selectedUser: User? = nil
+    @State private var isShowingUser = false
+
+    
     var body: some View {
-        NavigationSplitView(columnVisibility: .constant(.all)) {
-            NavigationLink("Primary") {
-                Text("New view")
-            }
-        } detail: {
-            Text("Content")
-                .navigationTitle("Content View")
+        Button("Tap Me") {
+            isShowingUser = true
         }
-        .navigationSplitViewStyle(.balanced)
+        .alert("Welcome", isPresented: $isShowingUser, presenting: selectedUser) { user in
+            Button(user.id) { }
+        }
     }
 }
 
