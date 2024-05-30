@@ -18,10 +18,11 @@ struct ContentView: View {
     
     var body: some View {
         Button("Tap Me") {
-            isShowingUser = true
+            selectedUser = User()
         }
-        .alert("Welcome", isPresented: $isShowingUser, presenting: selectedUser) { user in
-            Button(user.id) { }
+        .sheet(item: $selectedUser) { user in
+            Text(user.id)
+                .presentationDetents([.medium, .large])
         }
     }
 }
