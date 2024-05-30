@@ -9,19 +9,16 @@ import SwiftUI
 
 struct ContentView: View {
     @State private var layoutVertically = false
-
+    @Environment(\.horizontalSizeClass) var horizontalSizeClass
+    
     var body: some View {
-        Button {
-            layoutVertically.toggle()
-        } label: {
-            if layoutVertically {
-                VStack {
-                    UserView()
-                }
-            } else {
-                HStack {
-                    UserView()
-                }
+        if horizontalSizeClass == .compact {
+            VStack {
+                UserView()
+            }
+        } else {
+            HStack {
+                UserView()
             }
         }
     }
